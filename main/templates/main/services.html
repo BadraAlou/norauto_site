@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Services - GeoMaliPlus | Solutions GPS pour Voitures, Motos, Personnes et Enfants</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --surface: #ffffff;
+            --surface-secondary: #f8fafc;
+            --surface-tertiary: #f1f5f9;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --radius: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--surface);
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Back Button - Simplifié avec juste une flèche */
+        .back-button {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 1000;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+        }
+
+        .back-button:hover {
+            background: var(--surface-secondary);
+            transform: translateX(-2px);
+            box-shadow: var(--shadow-md);
+            color: var(--text-primary);
+        }
+
+        /* Page Header - Hauteur réduite */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            min-height: 35vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.4;
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .page-header p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 300;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Hero Services Section */
+        .hero-services {
+            background: var(--surface-secondary);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero-services h2 {
+            color: var(--text-primary);
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-services p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .service-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .service-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .service-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-light);
+        }
+
+        .service-item-icon {
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .service-item-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.75rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4rem;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            border-radius: 3px;
+        }
+
+        .service-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            height: 100%;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+        }
+
+        .service-card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-8px);
+        }
+
+        .service-icon {
+            width: 4rem;
+            height: 4rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .service-title {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .service-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .service-features {
+            margin-bottom: 2rem;
+        }
+
+        .service-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .service-feature i {
+            color: white;
+            font-size: 0.75rem;
+            margin-right: 0.75rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: linear-gradient(135deg, var(--secondary), #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .service-feature span {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .service-badge {
+            background: linear-gradient(135deg, var(--warning), #d97706);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.95rem;
+            margin-right: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .btn-primary i {
+            margin-right: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark), #1e40af);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 0.625rem 1.375rem;
+            font-weight: 600;
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Spécialisation par couleur */
+        .service-card.vehicles .service-icon {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+        }
+
+        .service-card.motos .service-icon {
+            background: linear-gradient(135deg, #ea580c, #c2410c);
+        }
+
+        .service-card.persons .service-icon {
+            background: linear-gradient(135deg, var(--secondary), #059669);
+        }
+
+        .service-card.children .service-icon {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+
+        /* Process Section */
+        .process-section {
+            background: var(--surface-secondary);
+            padding: 4rem 0;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .process-number {
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 700;
+            box-shadow: var(--shadow-md);
+        }
+
+        .process-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .process-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .cta-section p {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.95rem;
+            margin: 0 0.5rem 0.75rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface-secondary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-logo {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: var(--radius);
+        }
+
+        .footer-brand-name {
+            font-size: 1.375rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-description {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .social-link {
+            width: 2.25rem;
+            height: 2.25rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .footer-heading {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: block;
+            padding: 0.25rem 0;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .footer-contact-icon {
+            color: var(--primary-light);
+            width: 1rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(2rem);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(2rem);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .back-button {
+                top: 1rem;
+                left: 1rem;
+                width: 2.25rem;
+                height: 2.25rem;
+            }
+
+            .page-header {
+                min-height: 30vh;
+                padding: 1.5rem 0;
+            }
+
+            .hero-services {
+                padding: 3rem 0;
+            }
+
+            .service-showcase {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .services-section, .process-section, .cta-section {
+                padding: 3rem 0;
+            }
+
+            .service-card {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .btn-secondary {
+                display: block;
+                width: fit-content;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 0.75rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .service-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .service-card {
+                padding: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button - Simplifié -->
+    <a href="javascript:history.back()" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <!-- Page Header - Hauteur réduite -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1 class="fade-in-up">Nos Services GPS</h1>
+                <p class="fade-in-up">Solutions complètes de géolocalisation et sécurité pour vos voitures, motos, proches et enfants</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Services Section -->
+    <section class="hero-services">
+        <div class="container">
+            <h2 class="fade-in-up">Services de Géolocalisation Spécialisés</h2>
+            <p class="fade-in-up">De l'installation à la maintenance, nous vous accompagnons dans la sécurisation de ce qui compte le plus pour vous</p>
+
+            <div class="service-showcase fade-in-up">
+                <div class="service-item">
+                    <div class="service-item-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div class="service-item-name">Sécurité Véhicules</div>
+                </div>
+                <div class="service-item">
+                    <div class="service-item-icon">
+                        <i class="fas fa-motorcycle"></i>
+                    </div>
+                    <div class="service-item-name">Protection Motos</div>
+                </div>
+                <div class="service-item">
+                    <div class="service-item-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="service-item-name">Suivi Personnes</div>
+                </div>
+                <div class="service-item">
+                    <div class="service-item-icon">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <div class="service-item-name">Sécurité Enfants</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Nos Solutions Complètes</h2>
+
+            <div class="row">
+                <!-- Service Sécurité Véhicules -->
+                <div class="col-lg-6 mb-4">
+                    <div class="service-card vehicles fade-in-up">
+                        <div class="service-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <div class="service-badge">Service Premium</div>
+                        <h3 class="service-title">Sécurité Véhicules</h3>
+                        <p class="service-description">Service complet de protection pour vos voitures avec installation professionnelle, suivi 24h/24 et intervention rapide en cas d'urgence.</p>
+                        <div class="service-features">
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Installation professionnelle gratuite</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Suivi en temps réel 24h/24</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Alertes anti-vol instantanées</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Coupure moteur à distance</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Rapport mensuel détaillé</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Support technique dédié</span>
+                            </div>
+                        </div>
+                        <a href="/nos_produits/" class="btn-primary">
+                            <i class="fas fa-eye"></i> Voir nos produits
+                        </a>
+                        <a href="/contact/" class="btn-outline">
+                            <i class="fas fa-info-circle"></i> En savoir plus
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service Protection Motos -->
+                <div class="col-lg-6 mb-4">
+                    <div class="service-card motos fade-in-up">
+                        <div class="service-icon">
+                            <i class="fas fa-motorcycle"></i>
+                        </div>
+                        <div class="service-badge">Spécialisé 2-Roues</div>
+                        <h3 class="service-title">Protection Motos</h3>
+                        <p class="service-description">Solution spécialement adaptée aux deux-roues avec équipements résistants aux vibrations et aux intempéries. Installation discrète garantie.</p>
+                        <div class="service-features">
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Équipement anti-vibrations</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Résistant aux intempéries</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Installation invisible</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Batterie longue autonomie</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Alertes de mouvement</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Géolocalisation précise</span>
+                            </div>
+                        </div>
+                        <a href="/nos_produits/" class="btn-primary">
+                            <i class="fas fa-eye"></i> Voir nos produits
+                        </a>
+                        <a href="/contact/" class="btn-outline">
+                            <i class="fas fa-info-circle"></i> En savoir plus
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service Suivi Personnes -->
+                <div class="col-lg-6 mb-4">
+                    <div class="service-card persons fade-in-up">
+                        <div class="service-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <div class="service-badge">Sécurité Familiale</div>
+                        <h3 class="service-title">Suivi Personnes</h3>
+                        <p class="service-description">Service de protection personnelle avec équipements discrets et fonctionnalités d'urgence. Idéal pour personnes âgées et travailleurs isolés.</p>
+                        <div class="service-features">
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Équipement ultra-discret</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Bouton SOS d'urgence</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Zones de sécurité configurables</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Alertes famille automatiques</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Historique des déplacements</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Assistance 24h/24</span>
+                            </div>
+                        </div>
+                        <a href="/nos_produits/" class="btn-primary">
+                            <i class="fas fa-eye"></i> Voir nos produits
+                        </a>
+                        <a href="/contact/" class="btn-outline">
+                            <i class="fas fa-info-circle"></i> En savoir plus
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service Sécurité Enfants -->
+                <div class="col-lg-6 mb-4">
+                    <div class="service-card children fade-in-up">
+                        <div class="service-icon">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <div class="service-badge">Protection Enfants</div>
+                        <h3 class="service-title">Sécurité Enfants</h3>
+                        <p class="service-description">Service spécialement conçu pour la sécurité des enfants avec équipements ludiques et fonctionnalités adaptées aux familles modernes.</p>
+                        <div class="service-features">
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Design coloré et amusant</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Zones école/maison automatiques</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Communication bidirectionnelle</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Alertes parents instantanées</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Résistant aux chocs</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Mode école (silencieux)</span>
+                            </div>
+                        </div>
+                        <a href="/nos_produits/" class="btn-primary">
+                            <i class="fas fa-eye"></i> Voir nos produits
+                        </a>
+                        <a href="/contact/" class="btn-outline">
+                            <i class="fas fa-info-circle"></i> En savoir plus
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Comment Ça Marche ?</h2>
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <div class="process-step fade-in-up">
+                        <div class="process-number">1</div>
+                        <h4 class="process-title">Consultation</h4>
+                        <p class="process-description">Nous analysons vos besoins et vous conseillons la meilleure solution GPS.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="process-step fade-in-up">
+                        <div class="process-number">2</div>
+                        <h4 class="process-title">Installation</h4>
+                        <p class="process-description">Nos techniciens installent votre équipement gratuitement à domicile ou en atelier.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="process-step fade-in-up">
+                        <div class="process-number">3</div>
+                        <h4 class="process-title">Configuration</h4>
+                        <p class="process-description">Paramétrage de votre application mobile et formation à l'utilisation.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="process-step fade-in-up">
+                        <div class="process-number">4</div>
+                        <h4 class="process-title">Suivi</h4>
+                        <p class="process-description">Surveillance 24h/24 et support technique permanent pour votre tranquillité.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="fade-in-up">Prêt à Sécuriser ce qui Compte le Plus ?</h2>
+            <p class="fade-in-up">Découvrez nos produits et leurs tarifs, ou contactez-nous pour une consultation personnalisée gratuite.</p>
+            <div class="fade-in-up">
+                <a href="/nos_produits/" class="btn-secondary">
+                    <i class="fas fa-shopping-bag me-2"></i> Voir nos Produits & Prix
+                </a>
+                <a href="/contact/" class="btn-secondary">
+                    <i class="fas fa-phone me-2"></i> Consultation Gratuite
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2logo%20gps.jpg-Y1bpYGOqhaGnwnUvbyrli9b8AStFjn.jpeg" alt="GeoMaliPlus Logo" class="footer-logo">
+                        <span class="footer-brand-name">GeoMaliPlus</span>
+                    </div>
+                    <p class="footer-description">Services professionnels de géolocalisation au Mali. Nous sécurisons vos voitures, motos, proches et enfants avec des solutions GPS innovantes.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Nos Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="/services/" class="footer-link">Sécurité Véhicules</a></li>
+                        <li><a href="/services/" class="footer-link">Protection Motos</a></li>
+                        <li><a href="/services/" class="footer-link">Suivi Personnes</a></li>
+                        <li><a href="/services/" class="footer-link">Sécurité Enfants</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Entreprise</h3>
+                    <ul class="footer-links">
+                        <li><a href="/a_propos/" class="footer-link">À propos</a></li>
+                        <li><a href="/nos_produits/" class="footer-link">Nos produits</a></li>
+                        <li><a href="/avis/" class="footer-link">Témoignages</a></li>
+                        <li><a href="#" class="footer-link">Garanties</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Contact</h3>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+                        <span>Baco djicoroni-golf, Bamako, Mali</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-phone-alt footer-contact-icon"></i>
+                        <span>+223 82 79 01 57</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope footer-contact-icon"></i>
+                        <span>contact@geomaliplus.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 GeoMaliPlus. Tous droits réservés. Services GPS Professionnels Mali.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with fade-in-up class
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Enhanced card hover animations
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

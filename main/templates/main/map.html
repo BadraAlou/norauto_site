@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte - GeoMaliPlus</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <!-- Navbar -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Page Header -->
+    <section class="page-header bg-primary text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1 class="fw-bold">Carte Interactive</h1>
+                    <p class="lead">Démonstration de notre plateforme de suivi GPS</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Demo Section -->
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-lg-3 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h4 class="mb-0">Véhicules</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Rechercher un véhicule...">
+                                    <button class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                            <div class="vehicle-list">
+                                <div class="vehicle-item d-flex align-items-center p-2 border-bottom active">
+                                    <div class="vehicle-icon me-3">
+                                        <i class="fas fa-truck text-primary"></i>
+                                    </div>
+                                    <div class="vehicle-info flex-grow-1">
+                                        <h6 class="mb-0">Camion de livraison</h6>
+                                        <small class="text-muted">En mouvement • 45 km/h</small>
+                                    </div>
+                                    <div class="vehicle-status">
+                                        <span class="badge bg-success">En ligne</span>
+                                    </div>
+                                </div>
+                                <div class="vehicle-item d-flex align-items-center p-2 border-bottom">
+                                    <div class="vehicle-icon me-3">
+                                        <i class="fas fa-car text-primary"></i>
+                                    </div>
+                                    <div class="vehicle-info flex-grow-1">
+                                        <h6 class="mb-0">Véhicule commercial</h6>
+                                        <small class="text-muted">À l'arrêt • 0 km/h</small>
+                                    </div>
+                                    <div class="vehicle-status">
+                                        <span class="badge bg-success">En ligne</span>
+                                    </div>
+                                </div>
+                                <div class="vehicle-item d-flex align-items-center p-2 border-bottom">
+                                    <div class="vehicle-icon me-3">
+                                        <i class="fas fa-motorcycle text-primary"></i>
+                                    </div>
+                                    <div class="vehicle-info flex-grow-1">
+                                        <h6 class="mb-0">Moto de livraison</h6>
+                                        <small class="text-muted">En mouvement • 30 km/h</small>
+                                    </div>
+                                    <div class="vehicle-status">
+                                        <span class="badge bg-success">En ligne</span>
+                                    </div>
+                                </div>
+                                <div class="vehicle-item d-flex align-items-center p-2">
+                                    <div class="vehicle-icon me-3">
+                                        <i class="fas fa-truck-pickup text-primary"></i>
+                                    </div>
+                                    <div class="vehicle-info flex-grow-1">
+                                        <h6 class="mb-0">Pickup de service</h6>
+                                        <small class="text-muted">Dernière connexion: 2h</small>
+                                    </div>
+                                    <div class="vehicle-status">
+                                        <span class="badge bg-secondary">Hors ligne</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map -->
+                <div class="col-lg-9">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-0">
+                            <div id="map" style="height: 600px;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Vehicle Info Panel -->
+                    <div class="card border-0 shadow-sm mt-4">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h4 class="mb-0">Informations du véhicule</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5 class="fw-bold">Camion de livraison</h5>
+                                    <p class="mb-1"><strong>Immatriculation:</strong> ML-1234-AB</p>
+                                    <p class="mb-1"><strong>Chauffeur:</strong> Amadou Diallo</p>
+                                    <p class="mb-1"><strong>Téléphone:</strong> +223 76 12 34 56</p>
+                                    <p class="mb-1"><strong>Statut:</strong> <span class="badge bg-success">En mouvement</span></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-1"><strong>Vitesse actuelle:</strong> 45 km/h</p>
+                                    <p class="mb-1"><strong>Distance parcourue aujourd'hui:</strong> 120 km</p>
+                                    <p class="mb-1"><strong>Temps de conduite:</strong> 3h 45min</p>
+                                    <p class="mb-1"><strong>Dernière mise à jour:</strong> Il y a 2 minutes</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h6 class="fw-bold">Actions rapides</h6>
+                                    <div class="btn-group">
+                                        <button class="btn btn-outline-primary btn-sm"><i class="fas fa-history me-1"></i> Historique</button>
+                                        <button class="btn btn-outline-primary btn-sm"><i class="fas fa-route me-1"></i> Itinéraire</button>
+                                        <button class="btn btn-outline-primary btn-sm"><i class="fas fa-chart-line me-1"></i> Rapports</button>
+                                        <button class="btn btn-outline-primary btn-sm"><i class="fas fa-bell me-1"></i> Alertes</button>
+                                        <button class="btn btn-outline-primary btn-sm"><i class="fas fa-cog me-1"></i> Paramètres</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        $(function(){
+            $("#navbar-placeholder").load("navbar.html");
+            $("#footer-placeholder").load("footer.html");
+
+            // Initialize map
+            var map = L.map('map').setView([12.6392, -8.0029], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Add markers for vehicles
+            var truckIcon = L.divIcon({
+                html: '<i class="fas fa-truck fa-2x text-primary"></i>',
+                className: 'vehicle-marker',
+                iconSize: [30, 30],
+                iconAnchor: [15, 15]
+            });
+
+            var carIcon = L.divIcon({
+                html: '<i class="fas fa-car fa-2x text-primary"></i>',
+                className: 'vehicle-marker',
+                iconSize: [30, 30],
+                iconAnchor: [15, 15]
+            });
+
+            var motoIcon = L.divIcon({
+                html: '<i class="fas fa-motorcycle fa-2x text-primary"></i>',
+                className: 'vehicle-marker',
+                iconSize: [30, 30],
+                iconAnchor: [15, 15]
+            });
+
+            // Add markers
+            L.marker([12.6392, -8.0029], {icon: truckIcon}).addTo(map)
+                .bindPopup('<b>Camion de livraison</b><br>En mouvement • 45 km/h');
+
+            L.marker([12.6450, -8.0100], {icon: carIcon}).addTo(map)
+                .bindPopup('<b>Véhicule commercial</b><br>À l\'arrêt • 0 km/h');
+
+            L.marker([12.6300, -7.9950], {icon: motoIcon}).addTo(map)
+                .bindPopup('<b>Moto de livraison</b><br>En mouvement • 30 km/h');
+
+            // Add route line
+            var routePoints = [
+                [12.6392, -8.0029],
+                [12.6400, -8.0050],
+                [12.6420, -8.0070],
+                [12.6450, -8.0100],
+                [12.6470, -8.0130],
+                [12.6500, -8.0150]
+            ];
+
+            var routeLine = L.polyline(routePoints, {color: 'blue', weight: 4}).addTo(map);
+
+            // Add geofence zone
+            var geofenceCircle = L.circle([12.6450, -8.0100], {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.2,
+                radius: 500
+            }).addTo(map);
+        });
+    </script>
+    <style>
+        .vehicle-marker {
+            background: none;
+            border: none;
+        }
+        .vehicle-item {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .vehicle-item:hover, .vehicle-item.active {
+            background-color: #f8f9fa;
+        }
+    </style>
+</body>
+</html>

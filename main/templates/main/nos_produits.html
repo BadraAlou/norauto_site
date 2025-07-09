@@ -1,0 +1,1002 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Produits - GeoMaliPlus</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --primary-light: #60a5fa;
+            --primary-lighter: #93c5fd;
+            --primary-lightest: #dbeafe;
+            --text-dark: #1a202c;
+            --text-light: #4a5568;
+            --text-muted: #6b7280;
+            --bg-light: #ffffff;
+            --bg-gray: #f8fafc;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.5;
+        }
+
+        /* Bouton retour - Flèche uniquement */
+        .back-button {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+            color: white;
+        }
+
+        /* Page Header - Très réduite */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 25px 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+            background-size: 50px 50px;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding-top: 10px;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .page-header p {
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Header avec panier */
+        .header-nav {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            z-index: 10;
+        }
+
+        .cart-button {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+        }
+
+        .cart-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .cart-count {
+            background: var(--danger-color);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 10px;
+            min-width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+        }
+
+        /* Filters - Plus compact */
+        .filters-section {
+            background: var(--bg-gray);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .filters-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .filter-select {
+            padding: 8px 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: white;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 10px 40px 10px 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            width: 250px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        /* Products Grid - Optimisé pour images plus grandes */
+        .products-section {
+            padding: 50px 0;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Image agrandie */
+        .product-image {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            background: var(--bg-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .image-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+
+        /* Info produit simplifiée */
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        /* Prix plus visible */
+        .product-price {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .price-current {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .price-original {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .price-discount {
+            background: var(--danger-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 8px;
+            display: inline-block;
+        }
+
+        /* Bouton simplifié - pleine largeur */
+        .product-actions {
+            padding: 0;
+        }
+
+        .btn-add-cart {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-add-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-add-cart:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #0f172a;
+            color: white;
+            padding: 4rem 1rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-image {
+            width: 3rem;
+            height: auto;
+        }
+
+        .footer-logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary-light), #f59e0b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-description {
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-heading {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-link {
+            color: #94a3b8;
+            margin-bottom: 0.75rem;
+            transition: color 0.2s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+
+        .footer-contact-icon {
+            color: var(--primary-light);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #1e293b;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            text-align: center;
+            color: #94a3b8;
+        }
+
+        .btn-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            padding: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-icon:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Loading Animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Toast Notification */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+            padding: 15px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--success-color);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .toast-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--success-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 8px;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .toast-message {
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .filters-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .product-image {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 25px 0 20px;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .back-button {
+                top: 12px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .cart-button {
+                top: 12px;
+                right: 15px;
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 15px;
+            }
+
+            .product-image {
+                height: 200px;
+            }
+
+            .products-section {
+                padding: 30px 0;
+            }
+
+            .footer {
+                padding: 3rem 1rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .page-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .page-header p {
+                font-size: 0.9rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-image {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Header -->
+    <section class="page-header">
+        <!-- Bouton retour - Flèche uniquement -->
+        <a href="javascript:history.back()" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+
+        <!-- Bouton panier -->
+        <div class="header-nav">
+            <a href="{% url 'panier' %}" class="cart-button">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Panier</span>
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </div>
+
+        <div class="container">
+            <div class="page-header-content">
+                <h1>Nos Produits GPS</h1>
+                <p>Découvrez notre gamme complète de puces GPS et trackers de géolocalisation</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <select class="filter-select" id="categoryFilter">
+                        <option value="">Toutes les catégories</option>
+                        <option value="vehicule">Véhicules</option>
+                        <option value="moto">Motos</option>
+                        <option value="personnel">Personnel</option>
+                        <option value="objet">Objets</option>
+                    </select>
+
+                    <select class="filter-select" id="priceFilter">
+                        <option value="">Tous les prix</option>
+                        <option value="0-7500">0 - 7500 FCFA</option>
+                        <option value="7500-10000">7500 - 10000 FCFA</option>
+                        <option value="10000-15000">10000 - 15000 FCFA</option>
+                        <option value="15000+">15000+ FCFA</option>
+                    </select>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Rechercher un produit...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products-section">
+        <div class="container">
+            <div class="products-grid" id="productsGrid">
+                <!-- Les produits seront générés par JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2logo%20gps.jpg-Y1bpYGOqhaGnwnUvbyrli9b8AStFjn.jpeg" alt="GeoMaliPlus Logo" class="footer-logo-image">
+                        <span class="footer-logo-text">GeoMaliPlus</span>
+                    </div>
+                    <p class="footer-description">Solutions de géolocalisation et de sécurité innovantes pour protéger vos proches et vos biens au Mali.</p>
+                    <div class="footer-social">
+                        <a href="#" class="btn-icon" style="background-color: rgba(255, 255, 255, 0.1); color: white;">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="btn-icon" style="background-color: rgba(255, 255, 255, 0.1); color: white;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="btn-icon" style="background-color: rgba(255, 255, 255, 0.1); color: white;">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'services' %}" class="footer-link">Suivi des personnes</a></li>
+                        <li><a href="{% url 'services' %}" class="footer-link">Protection véhicules</a></li>
+                        <li><a href="{% url 'services' %}" class="footer-link">Sécurité enfants</a></li>
+                        <li><a href="{% url 'services' %}" class="footer-link">Application mobile</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Entreprise</h3>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'a_propos' %}" class="footer-link">À propos</a></li>
+                        <li><a href="{% url 'a_propos' %}#equipe" class="footer-link">Notre équipe</a></li>
+                        <li><a href="{% url 'avis' %}" class="footer-link">Témoignages</a></li>
+                        <li><a href="#" class="footer-link">Actualités</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Contact</h3>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+                        <span>Bamako, Mali</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-phone-alt footer-contact-icon"></i>
+                        <span>+223 76 12 34 56</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope footer-contact-icon"></i>
+                        <span>contact@geomaliplus.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 GeoMaliPlus. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Configuration des produits avec vos prix mis à jour
+        const products = [
+            {
+                id: 1,
+                name: "Puce GPS Voiture",
+                category: "vehicule",
+                price: 10000,
+                originalPrice: null,
+                image: "{% static 'images/puce1.jpg' %}"
+            },
+            {
+                id: 2,
+                name: "Puces GPS Motos",
+                category: "personnel",
+                price: 7500,
+                originalPrice: null,
+                image: "{% static 'images/puce2.jpg' %}"
+            },
+            {
+                id: 3,
+                name: "Puces GPS Voiture",
+                category: "vehicule",
+                price: 10000,
+                originalPrice: null,
+                image: "{% static 'images/puce3.jpg' %}"
+            },
+            {
+                id: 4,
+                name: "Puces pour Portable",
+                category: "objet",
+                price: 7500,
+                originalPrice: null,
+                image: "{% static 'images/puce4.jpg' %}"
+            },
+            {
+                id: 5,
+                name: "Tracker pour Personnes",
+                category: "personnel",
+                price: 7500,
+                originalPrice: null,
+                image: "{% static 'images/puce5.jpg' %}"
+            },
+            {
+                id: 6,
+                name: "Tracker GPS",
+                category: "personnel",
+                price: 10000,
+                originalPrice: null,
+                image: "{% static 'images/puce9.jpg' %}"
+            }
+        ];
+
+        // Gestion du panier
+        class CartManager {
+            constructor() {
+                this.cart = JSON.parse(localStorage.getItem('geoMaliCart') || '[]');
+                this.updateCartCount();
+            }
+
+            addToCart(productId, quantity = 1) {
+                const product = products.find(p => p.id === productId);
+                if (!product) return false;
+
+                const existingItem = this.cart.find(item => item.id === productId);
+
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    this.cart.push({
+                        id: productId,
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                        quantity: quantity
+                    });
+                }
+
+                this.saveCart();
+                this.updateCartCount();
+                this.showToast('Produit ajouté au panier', `${product.name} a été ajouté à votre panier`);
+                return true;
+            }
+
+            saveCart() {
+                localStorage.setItem('geoMaliCart', JSON.stringify(this.cart));
+            }
+
+            updateCartCount() {
+                const totalItems = this.cart.reduce((sum, item) => sum + item.quantity, 0);
+                const cartCountElement = document.getElementById('cartCount');
+                if (cartCountElement) {
+                    cartCountElement.textContent = totalItems;
+                }
+            }
+
+            showToast(title, message) {
+                const toastContainer = document.getElementById('toastContainer');
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.innerHTML = `
+                    <div class="toast-header">
+                        <div class="toast-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="toast-title">${title}</div>
+                    </div>
+                    <div class="toast-message">${message}</div>
+                `;
+
+                toastContainer.appendChild(toast);
+
+                setTimeout(() => toast.classList.add('show'), 100);
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+        }
+
+        // Initialisation du gestionnaire de panier
+        const cartManager = new CartManager();
+
+        // Rendu des produits
+        function renderProducts(productsToRender = products) {
+            const grid = document.getElementById('productsGrid');
+
+            if (productsToRender.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-12 text-center">
+                        <h3>Aucun produit trouvé</h3>
+                        <p>Essayez de modifier vos critères de recherche</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = productsToRender.map(product => `
+                <div class="product-card" data-category="${product.category}" data-price="${product.price}">
+                    <div class="product-image">
+                        <img src="${product.image}"
+                             alt="${product.name}"
+                             loading="lazy"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                             style="display: block;">
+                        <div class="image-placeholder" style="display: none;">
+                            <i class="fas fa-image"></i>
+                            <div>Image de ${product.name}</div>
+                            <small>Vérifiez que l'image existe dans static/images/</small>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <div class="product-price">
+                            <span class="price-current">${formatPrice(product.price)}</span>
+                            ${product.originalPrice ? `<span class="price-original">${formatPrice(product.originalPrice)}</span>` : ''}
+                            ${product.originalPrice ? `<div class="price-discount">-${Math.round((1 - product.price/product.originalPrice) * 100)}%</div>` : ''}
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-add-cart" onclick="addToCart(${product.id})">
+                                <i class="fas fa-shopping-cart"></i>
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Fonctions utilitaires
+        function formatPrice(price) {
+            return new Intl.NumberFormat('fr-FR').format(price) + ' FCFA';
+        }
+
+        function addToCart(productId) {
+            const button = event.target.closest('.btn-add-cart');
+            const originalContent = button.innerHTML;
+
+            button.disabled = true;
+            button.innerHTML = '<div class="loading-spinner"></div> Ajout...';
+
+            setTimeout(() => {
+                cartManager.addToCart(productId);
+                button.disabled = false;
+                button.innerHTML = originalContent;
+            }, 500);
+        }
+
+        // Filtres et recherche
+        function setupFilters() {
+            const categoryFilter = document.getElementById('categoryFilter');
+            const priceFilter = document.getElementById('priceFilter');
+            const searchInput = document.getElementById('searchInput');
+
+            function filterProducts() {
+                let filteredProducts = [...products];
+
+                // Filtre par catégorie
+                const selectedCategory = categoryFilter.value;
+                if (selectedCategory) {
+                    filteredProducts = filteredProducts.filter(p => p.category === selectedCategory);
+                }
+
+                // Filtre par prix
+                const selectedPriceRange = priceFilter.value;
+                if (selectedPriceRange) {
+                    const [min, max] = selectedPriceRange.split('-').map(p => p.replace('+', ''));
+                    filteredProducts = filteredProducts.filter(p => {
+                        if (max) {
+                            return p.price >= parseInt(min) && p.price <= parseInt(max);
+                        } else {
+                            return p.price >= parseInt(min);
+                        }
+                    });
+                }
+
+                // Filtre par recherche
+                const searchTerm = searchInput.value.toLowerCase();
+                if (searchTerm) {
+                    filteredProducts = filteredProducts.filter(p =>
+                        p.name.toLowerCase().includes(searchTerm)
+                    );
+                }
+
+                renderProducts(filteredProducts);
+            }
+
+            categoryFilter.addEventListener('change', filterProducts);
+            priceFilter.addEventListener('change', filterProducts);
+            searchInput.addEventListener('input', filterProducts);
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            setupFilters();
+        });
+    </script>
+</body>
+</html>

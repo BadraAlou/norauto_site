@@ -1,0 +1,1428 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoMaliPlus - Service de Géolocalisation GPS au Mali</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables */
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --primary-light: #60a5fa;
+            --secondary-color: #2563eb;
+            --accent-color: #1e40af;
+            --orange-color: #f59e0b;
+            --orange-dark: #d97706;
+            --text-dark: #1f2937;
+            --text-light: #4b5563;
+            --bg-light: #ffffff;
+            --bg-gray: #f8fafc;
+            --bg-blue-light: #dbeafe;
+            --border-color: #e5e7eb;
+        }
+
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--bg-light);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Utility classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .mb-16 {
+            margin-bottom: 4rem;
+        }
+
+        .py-20 {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .py-16 {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+
+        .py-8 {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .pt-8 {
+            padding-top: 2rem;
+        }
+
+        .mt-12 {
+            margin-top: 3rem;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .space-x-3 > * + * {
+            margin-left: 0.75rem;
+        }
+
+        .space-x-4 > * + * {
+            margin-left: 1rem;
+        }
+
+        .space-x-8 > * + * {
+            margin-left: 2rem;
+        }
+
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .max-w-2xl {
+            max-width: 42rem;
+        }
+
+        .max-w-3xl {
+            max-width: 48rem;
+        }
+
+        .max-w-4xl {
+            max-width: 56rem;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 5rem;
+            padding: 0.5rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-image {
+            width: 3.5rem;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-image:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary-color), var(--orange-color));
+            border-radius: 1px;
+        }
+
+        .nav-link.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary-color), var(--orange-color));
+            border-radius: 1px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .btn-white {
+            background-color: white;
+            color: var(--primary-color);
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-white:hover {
+            background-color: #f8fafc;
+            transform: translateY(-1px);
+        }
+
+        .btn-lg {
+            padding: 0.875rem 2rem;
+            font-size: 1.125rem;
+            border-radius: 0.75rem;
+        }
+
+        .btn-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            padding: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 2.5rem;
+            height: 2.5rem;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            color: var(--primary-color);
+        }
+
+        /* Hero Section - Nouveau design moderne */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 50%, var(--accent-color) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: white;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/><circle cx="20" cy="20" r="1" fill="white" opacity="0.05"/><circle cx="80" cy="30" r="1.5" fill="white" opacity="0.08"/><circle cx="30" cy="80" r="1" fill="white" opacity="0.06"/></svg>');
+            background-size: 100px 100px;
+            opacity: 0.4;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: slideInFromLeft 1s ease-out 0.2s both;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            line-height: 1.4;
+            animation: slideInFromRight 1s ease-out 0.4s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideInFromBottom 1s ease-out 0.6s both;
+        }
+
+        .btn-hero-primary {
+            background: linear-gradient(135deg, var(--orange-color), var(--orange-dark));
+            color: white;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-hero-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(245, 158, 11, 0.6);
+        }
+
+        .btn-hero-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .btn-hero-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 4rem;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--orange-color);
+            display: block;
+        }
+
+        .hero-stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+
+        /* Floating elements */
+        .hero-floating {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-floating:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .hero-floating:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .hero-floating:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 1rem;
+            background-color: white;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--orange-color));
+            border-radius: 2px;
+        }
+
+        .section-description {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 42rem;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+            border-color: var(--primary-light);
+        }
+
+        .feature-icon-wrapper {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-icon-blue {
+            background: linear-gradient(135deg, var(--bg-blue-light), rgba(59, 130, 246, 0.2));
+            color: var(--primary-color);
+        }
+
+        .feature-icon-indigo {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(129, 140, 248, 0.2));
+            color: #6366f1;
+        }
+
+        .feature-icon-cyan {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(34, 211, 238, 0.2));
+            color: #06b6d4;
+        }
+
+        .feature-icon-orange {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.2));
+            color: var(--orange-color);
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .feature-description {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 1rem;
+            background: linear-gradient(135deg, var(--bg-gray) 0%, var(--bg-blue-light) 100%);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .service-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.1);
+            height: 18rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .service-image {
+            transform: scale(1.05);
+        }
+
+        .service-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(29, 78, 216, 0.9), transparent);
+            color: white;
+        }
+
+        .service-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-description {
+            font-size: 0.875rem;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 5rem 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+            opacity: 0.3;
+        }
+
+        .cta-content {
+            max-width: 48rem;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-description {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #0f172a;
+            color: white;
+            padding: 4rem 1rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-image {
+            width: 3rem;
+            height: auto;
+        }
+
+        .footer-logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary-light), var(--orange-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-description {
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-heading {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-link {
+            color: #94a3b8;
+            margin-bottom: 0.75rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+
+        .footer-contact-icon {
+            color: var(--primary-light);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #1e293b;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            text-align: center;
+            color: #94a3b8;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            display: none;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu-container {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: white;
+            box-shadow: -5px 0 25px rgba(59, 130, 246, 0.1);
+            transition: right 0.3s ease;
+            z-index: 101;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active .mobile-menu-container {
+            right: 0;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(135deg, var(--bg-blue-light), rgba(59, 130, 246, 0.1));
+        }
+
+        .mobile-menu-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+        }
+
+        .mobile-menu-close:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        .mobile-menu-content {
+            padding: 1.5rem;
+        }
+
+        .mobile-menu-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mobile-menu-link {
+            display: block;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .mobile-menu-link:hover {
+            background-color: var(--bg-blue-light);
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-link i {
+            margin-right: 0.75rem;
+            color: var(--primary-color);
+        }
+
+        /* Animations */
+        @keyframes slideInFromTop {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInFromBottom {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-lg {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-container {
+                height: 4.5rem;
+            }
+
+            .logo-image {
+                width: 3rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .py-20 {
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+            }
+
+            .section-description, .cta-description {
+                font-size: 1rem;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .btn-hero-primary, .btn-hero-secondary {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-container">
+            <div class="mobile-menu-header">
+                <div class="logo">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2logo%20gps.jpg-Y1bpYGOqhaGnwnUvbyrli9b8AStFjn.jpeg" alt="GeoMaliPlus Logo" class="logo-image">
+                    <span class="logo-text">GeoMaliPlus</span>
+                </div>
+                <button class="mobile-menu-close" id="mobileMenuClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="mobile-menu-content">
+                <ul class="mobile-menu-links">
+                    <li><a href="/" class="mobile-menu-link"><i class="fas fa-home"></i> Accueil</a></li>
+                    <li><a href="/a_propos/" class="mobile-menu-link"><i class="fas fa-building"></i> À propos</a></li>
+                    <li><a href="/nos_produits/" class="mobile-menu-link"><i class="fas fa-box"></i> Nos Produits</a></li>
+                    <li><a href="/services/" class="mobile-menu-link"><i class="fas fa-cogs"></i> Services</a></li>
+                    <li><a href="/contact/" class="mobile-menu-link"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="/commander/" class="mobile-menu-link"><i class="fas fa-shopping-cart"></i> Commander</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-container">
+                <div class="logo">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2logo%20gps.jpg-Y1bpYGOqhaGnwnUvbyrli9b8AStFjn.jpeg" alt="GeoMaliPlus Logo" class="logo-image">
+                    <span class="logo-text">GeoMaliPlus</span>
+                </div>
+
+                <nav class="nav">
+                    <div class="nav-links">
+                        <a href="/" class="nav-link active">Accueil</a>
+                        <a href="/a_propos/" class="nav-link">À propos</a>
+                        <a href="/services/" class="nav-link">Services</a>
+                        <a href="/nos_produits/" class="nav-link">Nos Produits</a>
+
+                        <a href="/contact/" class="nav-link">Contact</a>
+                        <a href="/panier/" class="nav-link">Panier</a>
+                        <a href="/commande/" class="nav-link">Commande</a>
+                    </div>
+                    <button class="hamburger" id="hamburgerMenu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section - Nouveau design moderne -->
+    <section class="hero">
+        <!-- Éléments flottants décoratifs -->
+        <div class="hero-floating">
+            <i class="fas fa-map-marker-alt fa-3x"></i>
+        </div>
+        <div class="hero-floating">
+            <i class="fas fa-satellite-dish fa-2x"></i>
+        </div>
+        <div class="hero-floating">
+            <i class="fas fa-shield-alt fa-2x"></i>
+        </div>
+
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Protégez ce qui compte le plus
+                </h1>
+
+                <p class="hero-subtitle">
+                    Solutions de géolocalisation avancées pour la sécurité de vos proches, véhicules et biens précieux. Technologie de pointe, surveillance 24h/7j.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="/nos_produits/" class="btn-hero-primary">
+                        <i class="fas fa-box" style="margin-right: 0.5rem;"></i>
+                        Découvrez nos produits
+                    </a>
+                    <a href="/contact/" class="btn-hero-secondary">
+                        <i class="fas fa-phone" style="margin-right: 0.5rem;"></i>
+                        Contactez-nous
+                    </a>
+                </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="text-center mb-16">
+                <h2 class="section-title">Pourquoi choisir GeoMaliPlus?</h2>
+                <p class="section-description">La solution de géolocalisation la plus complète pour protéger ce qui vous tient à cœur</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper feature-icon-blue">
+                        <i class="fas fa-users fa-2x"></i>
+                    </div>
+                    <h3 class="feature-title">Suivi des Personnes</h3>
+                    <p class="feature-description">Surveillez la localisation de vos proches et enfants en temps réel avec des alertes de sécurité personnalisées et des zones de géofencing.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper feature-icon-indigo">
+                        <i class="fas fa-car fa-2x"></i>
+                    </div>
+                    <h3 class="feature-title">Véhicules & Motos</h3>
+                    <p class="feature-description">Protection antivol complète pour vos véhicules et motos avec alertes instantanées, historique des trajets et immobilisation à distance.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper feature-icon-cyan">
+                        <i class="fas fa-mobile-alt fa-2x"></i>
+                    </div>
+                    <h3 class="feature-title">Application Intuitive</h3>
+                    <p class="feature-description">Contrôlez tout depuis votre smartphone avec notre application moderne disponible sur Android et iOS, interface simple et efficace.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper feature-icon-orange">
+                        <i class="fas fa-shield-alt fa-2x"></i>
+                    </div>
+                    <h3 class="feature-title">Sécurité Avancée</h3>
+                    <p class="feature-description">Système d'alertes intelligent, bouton SOS d'urgence, notifications en temps réel et support client 24h/7j pour votre tranquillité.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <div class="text-center mb-16">
+                <h2 class="section-title">Nos Solutions Complètes</h2>
+                <p class="section-description">Des technologies de pointe adaptées à chaque besoin de sécurité</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <img src="{% static 'images/puce9.jpg' %}" alt="Suivi famille" class="service-image">
+                    <div class="service-overlay">
+                        <h3 class="service-title">Protection Familiale</h3>
+                        <p class="service-description">Surveillez vos enfants et proches avec des alertes de sécurité et des zones de géofencing personnalisées</p>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <img src="{% static 'images/puce7.jpg' %}" alt="Sécurité véhicules" class="service-image">
+                    <div class="service-overlay">
+                        <h3 class="service-title">Sécurité Véhicules</h3>
+                        <p class="service-description">Protection antivol avancée avec immobilisation à distance et récupération rapide en cas de vol</p>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <img src="{% static 'images/puce8.jpg' %}" alt="Contrôle mobile" class="service-image">
+                    <div class="service-overlay">
+                        <h3 class="service-title">Contrôle Total</h3>
+                        <p class="service-description">Application mobile complète avec tableau de bord intuitif et notifications en temps réel</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Protégez ce qui vous tient à cœur</h2>
+                <p class="cta-description">Rejoignez plus de 1000 familles qui font confiance à GeoMaliPlus pour la sécurité de leurs proches et de leurs biens les plus précieux.</p>
+                <div class="cta-buttons">
+                    <a href="/contact/" class="btn btn-white btn-lg">
+                        <i class="fas fa-phone-alt" style="margin-right: 0.5rem;"></i> Contactez-nous maintenant
+                    </a>
+                    <a href="/commande/" class="btn btn-outline btn-lg" style="border-color: white; color: white;">
+                        Demander un devis gratuit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2logo%20gps.jpg-Y1bpYGOqhaGnwnUvbyrli9b8AStFjn.jpeg" alt="GeoMaliPlus Logo" class="footer-logo-image">
+                        <span class="footer-logo-text">GeoMaliPlus</span>
+                    </div>
+                    <p class="footer-description">Solutions de géolocalisation et de sécurité innovantes pour protéger vos proches et vos biens au Mali.</p>
+                    <div class="footer-social">
+                        <a href="#" class="btn btn-icon" style="background-color: rgba(255, 255, 255, 0.1); color: white;">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="btn btn-icon" style="background-color: rgba(255, 255, 255, 0.1); color: white;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="btn btn-icon" style="background-color: rgba(255, 255, 255, 0.1); color: white;">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="/services/" class="footer-link">Suivi des personnes</a></li>
+                        <li><a href="/services/" class="footer-link">Protection véhicules</a></li>
+                        <li><a href="/services/" class="footer-link">Sécurité enfants</a></li>
+                        <li><a href="/services/" class="footer-link">Application mobile</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Entreprise</h3>
+                    <ul class="footer-links">
+                        <li><a href="/a_propos/" class="footer-link">À propos</a></li>
+                        <li><a href="/a_propos/#equipe" class="footer-link">Notre équipe</a></li>
+                        <li><a href="/avis/" class="footer-link">Témoignages</a></li>
+                        <li><a href="#" class="footer-link">Actualités</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Contact</h3>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+                        <span>Bamako, Mali</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-phone-alt footer-contact-icon"></i>
+                        <span>+223 82 79 01 57</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope footer-contact-icon"></i>
+                        <span>contact@geomaliplus.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 GeoMaliPlus. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+        hamburgerMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        mobileMenuClose.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Scroll effect for header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 4px 20px rgba(59, 130, 246, 0.15)';
+            } else {
+                header.style.boxShadow = '0 1px 3px rgba(59, 130, 246, 0.1)';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Observe feature cards for staggered animation
+        document.querySelectorAll('.feature-card, .service-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.animationDelay = `${index * 0.1}s`;
+            observer.observe(card);
+        });
+
+        // Add pulse animation to CTA buttons
+        document.querySelectorAll('.cta .btn-primary').forEach(btn => {
+            btn.classList.add('pulse');
+        });
+
+        // Counter animation for hero stats
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target + (element.textContent.includes('+') ? '+' : '') + (element.textContent.includes('%') ? '%' : '');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start) + (element.textContent.includes('+') ? '+' : '') + (element.textContent.includes('%') ? '%' : '');
+                }
+            }, 16);
+        }
+
+        // Animate counters when hero section is visible
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = document.querySelectorAll('.hero-stat-number');
+                    counters.forEach(counter => {
+                        const text = counter.textContent;
+                        if (text.includes('1000')) {
+                            animateCounter(counter, 1000);
+                        } else if (text.includes('99.9')) {
+                            animateCounter(counter, 99.9);
+                        }
+                    });
+                    heroObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) {
+            heroObserver.observe(heroSection);
+        }
+    </script>
+</body>
+</html>

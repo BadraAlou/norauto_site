@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos - GeoMaliPlus | Qui sommes-nous ?</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --surface: #ffffff;
+            --surface-secondary: #f8fafc;
+            --surface-tertiary: #f1f5f9;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --radius: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--surface);
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Back Button - Simplifié avec juste une flèche */
+        .back-button {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 1000;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+        }
+
+        .back-button:hover {
+            background: var(--surface-secondary);
+            transform: translateX(-2px);
+            box-shadow: var(--shadow-md);
+            color: var(--text-primary);
+        }
+
+        /* Hero Section - Hauteur réduite */
+        .hero {
+            min-height: 35vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.4;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 300;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Layouts */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-alt {
+            background: var(--surface-secondary);
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+        }
+
+        /* Content Styling */
+        .content-text {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .content-text strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--radius-xl);
+            text-align: center;
+            margin: 2.5rem 0;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        .highlight-text {
+            font-size: 1.25rem;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+        }
+
+        .highlight-icon {
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Benefit Cards */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .benefit-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .benefit-card:hover::before {
+            left: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-light);
+        }
+
+        .benefit-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, #059669 100%);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            color: white;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .benefit-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .benefit-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-logo {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: var(--radius);
+        }
+
+        .footer-brand-name {
+            font-size: 1.375rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-description {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .social-link {
+            width: 2.25rem;
+            height: 2.25rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .footer-heading {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: block;
+            padding: 0.25rem 0;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .footer-contact-icon {
+            color: var(--primary-light);
+            width: 1rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        /* Animations */
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(2rem);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .back-button {
+                top: 1rem;
+                left: 1rem;
+                width: 2.25rem;
+                height: 2.25rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .hero {
+                min-height: 30vh;
+                padding: 1.5rem 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .benefit-card {
+                padding: 1.5rem;
+            }
+
+            .highlight-box {
+                padding: 1.5rem;
+            }
+
+            .highlight-text {
+                font-size: 1.125rem;
+            }
+        }
+
+        /* Scroll-triggered animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(2rem);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button - Simplifié -->
+    <a href="javascript:history.back()" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <!-- Hero Section - Hauteur réduite -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">À propos de GeoMaliPlus</h1>
+                <p class="hero-subtitle">Votre partenaire de confiance pour la sécurité et la géolocalisation au Mali</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h2 class="section-title fade-in-up">Qui sommes-nous ?</h2>
+
+                    <div class="fade-in-up">
+                        <p class="content-text">
+                            <strong>GeoMaliPlus</strong> est une entreprise malienne spécialisée dans la géolocalisation des personnes et des biens. Nous sommes nés d'une vision simple mais puissante : <strong>permettre à chaque famille malienne de protéger ce qui lui tient le plus à cœur</strong>.
+                        </p>
+
+                        <p class="content-text">
+                            Grâce à nos puces GPS de dernière génération et notre application mobile intuitive, vous pouvez suivre en temps réel ce qui compte pour vous : vos proches, vos voitures, vos motos ou vos objets précieux.
+                        </p>
+
+                        <p class="content-text">
+                            Nous croyons que chaque Malien mérite de vivre en sécurité et en toute tranquillité. C'est pourquoi nous mettons la technologie GPS au service de nos compatriotes, en rendant la sécurité accessible à tous, des familles aux entreprises, des zones urbaines aux régions les plus reculées du Mali.
+                        </p>
+                    </div>
+
+                    <div class="highlight-box fade-in-up">
+                        <div class="highlight-text">
+                            <i class="fas fa-heart highlight-icon"></i>
+                            Notre mission : Vous aider à ne plus jamais rien perdre de ce qui vous est cher
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Ce que nous apportons à la population malienne</h2>
+            <p class="section-subtitle fade-in-up">Des solutions concrètes pour améliorer votre quotidien et protéger ce qui compte le plus</p>
+
+            <div class="benefits-grid">
+                <div class="benefit-card fade-in-up">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-heart"></i>
+                    </div>
+                    <h3 class="benefit-title">Sécurité des Familles</h3>
+                    <p class="benefit-description">
+                        Nous permettons aux parents de veiller sur leurs enfants, aux familles de protéger leurs proches âgés, et à chacun de se sentir en sécurité au quotidien.
+                    </p>
+                </div>
+
+                <div class="benefit-card fade-in-up">
+                    <div class="benefit-icon">
+                        <i class="fas fa-car-side"></i>
+                    </div>
+                    <h3 class="benefit-title">Protection des Biens</h3>
+                    <p class="benefit-description">
+                        Nous luttons contre le vol de véhicules et protégeons les investissements des Maliens en sécurisant leurs voitures, motos et biens précieux.
+                    </p>
+                </div>
+
+                <div class="benefit-card fade-in-up">
+                    <div class="benefit-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3 class="benefit-title">Tranquillité d'Esprit</h3>
+                    <p class="benefit-description">
+                        Nous offrons la paix de l'esprit aux familles maliennes en leur donnant les outils pour toujours savoir où se trouvent leurs proches et leurs biens.
+                    </p>
+                </div>
+
+                <div class="benefit-card fade-in-up">
+                    <div class="benefit-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="benefit-title">Technologie Accessible</h3>
+                    <p class="benefit-description">
+                        Nous démocratisons l'accès à la technologie GPS en proposant des solutions simples, abordables et adaptées au contexte malien.
+                    </p>
+                </div>
+
+                <div class="benefit-card fade-in-up">
+                    <div class="benefit-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="benefit-title">Réactivité 24h/24</h3>
+                    <p class="benefit-description">
+                        Notre équipe malienne assure un support permanent pour répondre rapidement aux urgences et accompagner nos clients à tout moment.
+                    </p>
+                </div>
+
+                <div class="benefit-card fade-in-up">
+                    <div class="benefit-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3 class="benefit-title">Couverture Nationale</h3>
+                    <p class="benefit-description">
+                        Nous étendons progressivement notre couverture à travers tout le Mali pour que chaque région bénéficie de nos services de sécurité.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2logo%20gps.jpg-Y1bpYGOqhaGnwnUvbyrli9b8AStFjn.jpeg" alt="GeoMaliPlus Logo" class="footer-logo">
+                        <span class="footer-brand-name">GeoMaliPlus</span>
+                    </div>
+                    <p class="footer-description">
+                        Entreprise malienne spécialisée dans la géolocalisation. Nous protégeons les familles et sécurisons les biens à travers tout le Mali.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Nos Solutions</h3>
+                    <ul class="footer-links">
+                        <li><a href="/services/" class="footer-link">Sécurité Familles</a></li>
+                        <li><a href="/services/" class="footer-link">Protection Véhicules</a></li>
+                        <li><a href="/services/" class="footer-link">Suivi Enfants</a></li>
+                        <li><a href="/nos_produits/" class="footer-link">Nos Produits</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Entreprise</h3>
+                    <ul class="footer-links">
+                        <li><a href="/a_propos/" class="footer-link">À propos</a></li>
+                        <li><a href="/services/" class="footer-link">Nos services</a></li>
+                        <li><a href="/avis/" class="footer-link">Témoignages</a></li>
+                        <li><a href="#" class="footer-link">Actualités</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Contact</h3>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+                        <span>Baco djicoroni-golf, Bamako, Mali</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-phone-alt footer-contact-icon"></i>
+                        <span>+223 82 79 01 57</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope footer-contact-icon"></i>
+                        <span>contact@geomaliplus.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 GeoMaliPlus. Tous droits réservés. Entreprise malienne de géolocalisation.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with fade-in-up class
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
