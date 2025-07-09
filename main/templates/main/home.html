@@ -1,5 +1,4 @@
-{% load static %}
-<!DOCTYPE html>
+{% load static %}<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -212,9 +211,11 @@
             color: var(--primary-color);
         }
 
+        /* Navigation Desktop */
         .nav {
             display: flex;
             align-items: center;
+            gap: 2rem;
         }
 
         .nav-links {
@@ -228,6 +229,7 @@
             color: var(--text-dark);
             transition: color 0.2s ease;
             position: relative;
+            padding: 0.5rem 0;
         }
 
         .nav-link:hover {
@@ -259,6 +261,146 @@
             height: 2px;
             background: linear-gradient(to right, var(--primary-color), var(--orange-color));
             border-radius: 1px;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 3rem;
+            height: 3rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hamburger:hover {
+            background-color: var(--bg-blue-light);
+            transform: scale(1.05);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            display: none;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu-container {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            max-width: 90vw;
+            height: 100%;
+            background-color: white;
+            box-shadow: -5px 0 25px rgba(59, 130, 246, 0.1);
+            transition: right 0.3s ease;
+            z-index: 101;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active .mobile-menu-container {
+            right: 0;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(135deg, var(--bg-blue-light), rgba(59, 130, 246, 0.1));
+        }
+
+        .mobile-menu-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .mobile-menu-close:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        .mobile-menu-content {
+            padding: 1.5rem;
+        }
+
+        .mobile-menu-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mobile-menu-link {
+            display: block;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: all 0.2s ease;
+            margin-bottom: 0.5rem;
+        }
+
+        .mobile-menu-link:hover {
+            background-color: var(--bg-blue-light);
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .mobile-menu-link i {
+            margin-right: 0.75rem;
+            color: var(--primary-color);
+            width: 20px;
+        }
+
+        .mobile-menu-link.active i {
+            color: white;
+        }
+
+        .mobile-menu-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .mobile-menu-section-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            padding: 0 1rem;
         }
 
         .btn {
@@ -324,19 +466,7 @@
             justify-content: center;
         }
 
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            background: none;
-            border: none;
-            width: 2.5rem;
-            height: 2.5rem;
-            padding: 0.5rem;
-            border-radius: 0.375rem;
-            color: var(--primary-color);
-        }
-
-        /* Hero Section - Nouveau design moderne */
+        /* Hero Section */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -586,6 +716,55 @@
             line-height: 1.6;
         }
 
+        /* Voir Plus Button */
+        .voir-plus-container {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .btn-voir-plus {
+            background: white;
+            color: #374151;
+            border: 1px solid #d1d5db;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-voir-plus:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+        }
+
+        .btn-voir-plus i {
+            font-size: 0.75rem;
+            transition: transform 0.2s;
+        }
+
+        .btn-voir-plus:hover i {
+            transform: translateY(1px);
+        }
+
+        /* Contenu caché */
+        .contenu-cache {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease-in-out;
+            opacity: 0;
+        }
+
+        .contenu-cache.show {
+            max-height: 2000px;
+            opacity: 1;
+        }
+
         /* Services Section */
         .services {
             padding: 5rem 1rem;
@@ -694,6 +873,75 @@
             justify-content: center;
         }
 
+        /* Section Panier et Commander en bas */
+        .bottom-actions {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 3rem 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .bottom-actions-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .bottom-actions-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .bottom-actions-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .bottom-actions-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-bottom-action {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .btn-panier {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-panier:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-commander {
+            background: linear-gradient(135deg, var(--orange-color), var(--orange-dark));
+            color: white;
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-commander:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(245, 158, 11, 0.4);
+        }
+
         /* Footer */
         .footer {
             background-color: #0f172a;
@@ -779,95 +1027,6 @@
             padding-top: 2rem;
             text-align: center;
             color: #94a3b8;
-        }
-
-        /* Mobile menu */
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(4px);
-            z-index: 100;
-            display: none;
-        }
-
-        .mobile-menu.active {
-            display: block;
-        }
-
-        .mobile-menu-container {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 300px;
-            height: 100%;
-            background-color: white;
-            box-shadow: -5px 0 25px rgba(59, 130, 246, 0.1);
-            transition: right 0.3s ease;
-            z-index: 101;
-            overflow-y: auto;
-        }
-
-        .mobile-menu.active .mobile-menu-container {
-            right: 0;
-        }
-
-        .mobile-menu-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            background: linear-gradient(135deg, var(--bg-blue-light), rgba(59, 130, 246, 0.1));
-        }
-
-        .mobile-menu-close {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--primary-color);
-            width: 2.5rem;
-            height: 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 0.375rem;
-        }
-
-        .mobile-menu-close:hover {
-            background-color: rgba(59, 130, 246, 0.1);
-        }
-
-        .mobile-menu-content {
-            padding: 1.5rem;
-        }
-
-        .mobile-menu-links {
-            list-style: none;
-            padding: 0;
-        }
-
-        .mobile-menu-link {
-            display: block;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            color: var(--text-dark);
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-
-        .mobile-menu-link:hover {
-            background-color: var(--bg-blue-light);
-            color: var(--primary-color);
-        }
-
-        .mobile-menu-link i {
-            margin-right: 0.75rem;
-            color: var(--primary-color);
         }
 
         /* Animations */
@@ -963,14 +1122,25 @@
             animation: pulse 2s infinite;
         }
 
-        /* Responsive */
-        @media (max-width: 992px) {
-            .nav-links {
-                display: none;
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             }
 
+            .hero-title {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            /* Navigation mobile */
             .hamburger {
-                display: block;
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
             }
 
             .features-grid {
@@ -987,6 +1157,10 @@
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+
             .section-title {
                 font-size: 2rem;
             }
@@ -1011,10 +1185,15 @@
 
             .header-container {
                 height: 4.5rem;
+                padding: 0.5rem 0;
             }
 
             .logo-image {
                 width: 3rem;
+            }
+
+            .logo-text {
+                font-size: 1.3rem;
             }
 
             .hero-title {
@@ -1028,6 +1207,21 @@
             .hero-stats {
                 flex-direction: column;
                 gap: 1.5rem;
+            }
+
+            .bottom-actions-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-bottom-action {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
         }
 
@@ -1047,6 +1241,7 @@
 
             .hero-title {
                 font-size: 2rem;
+                line-height: 1.2;
             }
 
             .hero-subtitle {
@@ -1057,9 +1252,53 @@
                 padding: 0.8rem 2rem;
                 font-size: 1rem;
             }
+
+            .bottom-actions-title {
+                font-size: 1.5rem;
+            }
+
+            .bottom-actions-description {
+                font-size: 1rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .mobile-menu-container {
+                width: 300px;
+            }
+
+            .hero-content {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.75rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .btn-hero-primary, .btn-hero-secondary {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .mobile-menu-container {
+                width: 280px;
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
@@ -1075,18 +1314,25 @@
             </div>
             <div class="mobile-menu-content">
                 <ul class="mobile-menu-links">
-                    <li><a href="/" class="mobile-menu-link"><i class="fas fa-home"></i> Accueil</a></li>
-                    <li><a href="/a_propos/" class="mobile-menu-link"><i class="fas fa-building"></i> À propos</a></li>
+                    <li><a href="/" class="mobile-menu-link active"><i class="fas fa-home"></i> Accueil</a></li>
+                    <li><a href="/a_propos/" class="mobile-menu-link"><i class="fas fa-info-circle"></i> À propos</a></li>
                     <li><a href="/nos_produits/" class="mobile-menu-link"><i class="fas fa-box"></i> Nos Produits</a></li>
                     <li><a href="/services/" class="mobile-menu-link"><i class="fas fa-cogs"></i> Services</a></li>
                     <li><a href="/contact/" class="mobile-menu-link"><i class="fas fa-envelope"></i> Contact</a></li>
-                    <li><a href="/commander/" class="mobile-menu-link"><i class="fas fa-shopping-cart"></i> Commander</a></li>
                 </ul>
+
+                <div class="mobile-menu-section">
+                    <div class="mobile-menu-section-title">Actions rapides</div>
+                    <ul class="mobile-menu-links">
+                        <li><a href="/panier/" class="mobile-menu-link"><i class="fas fa-shopping-cart"></i> Panier</a></li>
+                        <li><a href="/commande/" class="mobile-menu-link"><i class="fas fa-credit-card"></i> Commande</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Header -->
+    <!-- Header avec navigation complète -->
     <header class="header">
         <div class="container">
             <div class="header-container">
@@ -1094,17 +1340,13 @@
                     <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2logo%20gps.jpg-Y1bpYGOqhaGnwnUvbyrli9b8AStFjn.jpeg" alt="GeoMaliPlus Logo" class="logo-image">
                     <span class="logo-text">GeoMaliPlus</span>
                 </div>
-
                 <nav class="nav">
                     <div class="nav-links">
                         <a href="/" class="nav-link active">Accueil</a>
                         <a href="/a_propos/" class="nav-link">À propos</a>
-                        <a href="/services/" class="nav-link">Services</a>
                         <a href="/nos_produits/" class="nav-link">Nos Produits</a>
-
+                        <a href="/services/" class="nav-link">Services</a>
                         <a href="/contact/" class="nav-link">Contact</a>
-                        <a href="/panier/" class="nav-link">Panier</a>
-                        <a href="/commande/" class="nav-link">Commande</a>
                     </div>
                     <button class="hamburger" id="hamburgerMenu">
                         <i class="fas fa-bars"></i>
@@ -1114,7 +1356,7 @@
         </div>
     </header>
 
-    <!-- Hero Section - Nouveau design moderne -->
+    <!-- Hero Section -->
     <section class="hero">
         <!-- Éléments flottants décoratifs -->
         <div class="hero-floating">
@@ -1132,11 +1374,9 @@
                 <h1 class="hero-title">
                     Protégez ce qui compte le plus
                 </h1>
-
                 <p class="hero-subtitle">
                     Solutions de géolocalisation avancées pour la sécurité de vos proches, véhicules et biens précieux. Technologie de pointe, surveillance 24h/7j.
                 </p>
-
                 <div class="hero-buttons">
                     <a href="/nos_produits/" class="btn-hero-primary">
                         <i class="fas fa-box" style="margin-right: 0.5rem;"></i>
@@ -1146,11 +1386,6 @@
                         <i class="fas fa-phone" style="margin-right: 0.5rem;"></i>
                         Contactez-nous
                     </a>
-                </div>
-
-
-
-
                 </div>
             </div>
         </div>
@@ -1188,66 +1423,147 @@
                     <h3 class="feature-title">Application Intuitive</h3>
                     <p class="feature-description">Contrôlez tout depuis votre smartphone avec notre application moderne disponible sur Android et iOS, interface simple et efficace.</p>
                 </div>
+            </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper feature-icon-orange">
-                        <i class="fas fa-shield-alt fa-2x"></i>
-                    </div>
-                    <h3 class="feature-title">Sécurité Avancée</h3>
-                    <p class="feature-description">Système d'alertes intelligent, bouton SOS d'urgence, notifications en temps réel et support client 24h/7j pour votre tranquillité.</p>
-                </div>
+            <!-- Bouton Voir Plus -->
+            <div class="voir-plus-container">
+                <button class="btn-voir-plus" id="voirPlusBtn">
+                    <span id="voirPlusText">Voir Plus</span>
+                    <i class="fas fa-chevron-down" id="voirPlusIcon"></i>
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="services">
-        <div class="container">
-            <div class="text-center mb-16">
-                <h2 class="section-title">Nos Solutions Complètes</h2>
-                <p class="section-description">Des technologies de pointe adaptées à chaque besoin de sécurité</p>
+    <!-- Contenu qui s'affiche quand on clique -->
+    <div class="contenu-cache" id="contenuCache">
+        <!-- Feature supplémentaire -->
+        <section class="features" style="padding-top: 0;">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper feature-icon-orange">
+                            <i class="fas fa-shield-alt fa-2x"></i>
+                        </div>
+                        <h3 class="feature-title">Sécurité Avancée</h3>
+                        <p class="feature-description">Système d'alertes intelligent, bouton SOS d'urgence, notifications en temps réel et support client 24h/7j pour votre tranquillité.</p>
+                    </div>
+
+                    <div class="feature-card" style="grid-column: span 2;">
+                        <h3 class="feature-title" style="margin-bottom: 1.5rem;">Fonctionnalités avancées</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                            <div style="display: flex; align-items: start; gap: 1rem;">
+                                <div style="width: 32px; height: 32px; background: #dcfce7; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    <i class="fas fa-map-marker-alt" style="color: #16a34a; font-size: 0.875rem;"></i>
+                                </div>
+                                <div>
+                                    <h4 style="font-weight: 600; margin-bottom: 0.25rem;">Géofencing intelligent</h4>
+                                    <p style="color: #6b7280; font-size: 0.875rem;">Créez des zones de sécurité personnalisées</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: start; gap: 1rem;">
+                                <div style="width: 32px; height: 32px; background: #dbeafe; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    <i class="fas fa-satellite-dish" style="color: #1e40af; font-size: 0.875rem;"></i>
+                                </div>
+                                <div>
+                                    <h4 style="font-weight: 600; margin-bottom: 0.25rem;">Suivi en temps réel</h4>
+                                    <p style="color: #6b7280; font-size: 0.875rem;">Localisation précise 24h/24</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: start; gap: 1rem;">
+                                <div style="width: 32px; height: 32px; background: #f3e8ff; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    <i class="fas fa-shield-alt" style="color: #7c3aed; font-size: 0.875rem;"></i>
+                                </div>
+                                <div>
+                                    <h4 style="font-weight: 600; margin-bottom: 0.25rem;">Alertes instantanées</h4>
+                                    <p style="color: #6b7280; font-size: 0.875rem;">Notifications push et SMS</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: start; gap: 1rem;">
+                                <div style="width: 32px; height: 32px; background: #fee2e2; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    <i class="fas fa-phone" style="color: #dc2626; font-size: 0.875rem;"></i>
+                                </div>
+                                <div>
+                                    <h4 style="font-weight: 600; margin-bottom: 0.25rem;">Support 24/7</h4>
+                                    <p style="color: #6b7280; font-size: 0.875rem;">Assistance technique permanente</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div class="services-grid">
-                <div class="service-card">
-                    <img src="{% static 'images/puce9.jpg' %}" alt="Suivi famille" class="service-image">
-                    <div class="service-overlay">
-                        <h3 class="service-title">Protection Familiale</h3>
-                        <p class="service-description">Surveillez vos enfants et proches avec des alertes de sécurité et des zones de géofencing personnalisées</p>
-                    </div>
+        <!-- Services Section -->
+        <section class="services">
+            <div class="container">
+                <div class="text-center mb-16">
+                    <h2 class="section-title">Nos Solutions Complètes</h2>
+                    <p class="section-description">Des technologies de pointe adaptées à chaque besoin de sécurité</p>
                 </div>
 
-                <div class="service-card">
-                    <img src="{% static 'images/puce7.jpg' %}" alt="Sécurité véhicules" class="service-image">
-                    <div class="service-overlay">
-                        <h3 class="service-title">Sécurité Véhicules</h3>
-                        <p class="service-description">Protection antivol avancée avec immobilisation à distance et récupération rapide en cas de vol</p>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <img src="{% static 'images/puce9.jpg' %}" alt="Suivi famille" class="service-image">
+                        <div class="service-overlay">
+                            <h3 class="service-title">Protection Familiale</h3>
+                            <p class="service-description">Surveillez vos enfants et proches avec des alertes de sécurité et des zones de géofencing personnalisées</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="service-card">
-                    <img src="{% static 'images/puce8.jpg' %}" alt="Contrôle mobile" class="service-image">
-                    <div class="service-overlay">
-                        <h3 class="service-title">Contrôle Total</h3>
-                        <p class="service-description">Application mobile complète avec tableau de bord intuitif et notifications en temps réel</p>
+                    <div class="service-card">
+                        <img src="{% static 'images/puce7.jpg' %}" alt="Sécurité véhicules" class="service-image">
+                        <div class="service-overlay">
+                            <h3 class="service-title">Sécurité Véhicules</h3>
+                            <p class="service-description">Protection antivol avancée avec immobilisation à distance et récupération rapide en cas de vol</p>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <img src="{% static 'images/puce8.jpg' %}" alt="Contrôle mobile" class="service-image">
+                        <div class="service-overlay">
+                            <h3 class="service-title">Contrôle Total</h3>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- CTA Section -->
-    <section class="cta">
+        <!-- CTA Section -->
+        <section class="cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2 class="cta-title">Protégez ce qui vous tient à cœur</h2>
+                    <p class="cta-description">Rejoignez plus de 1000 familles qui font confiance à GeoMaliPlus pour la sécurité de leurs proches et de leurs biens les plus précieux.</p>
+                    <div class="cta-buttons">
+                        <a href="/contact/" class="btn btn-white btn-lg">
+                            <i class="fas fa-phone-alt" style="margin-right: 0.5rem;"></i> Contactez-nous maintenant
+                        </a>
+                        <a href="/commander/" class="btn btn-outline btn-lg" style="border-color: white; color: white;">
+                            Demander un devis gratuit
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Section Panier et Commander en bas -->
+    <section class="bottom-actions">
         <div class="container">
-            <div class="cta-content">
-                <h2 class="cta-title">Protégez ce qui vous tient à cœur</h2>
-                <p class="cta-description">Rejoignez plus de 1000 familles qui font confiance à GeoMaliPlus pour la sécurité de leurs proches et de leurs biens les plus précieux.</p>
-                <div class="cta-buttons">
-                    <a href="/contact/" class="btn btn-white btn-lg">
-                        <i class="fas fa-phone-alt" style="margin-right: 0.5rem;"></i> Contactez-nous maintenant
+            <div class="bottom-actions-content">
+                <h2 class="bottom-actions-title">Prêt à commander ?</h2>
+                <p class="bottom-actions-description">
+                    Consultez votre panier ou passez directement commande pour sécuriser vos biens dès aujourd'hui.
+                </p>
+                <div class="bottom-actions-buttons">
+                    <a href="/panier/" class="btn-bottom-action btn-panier">
+                        <i class="fas fa-shopping-cart"></i>
+                        Voir mon panier
                     </a>
-                    <a href="/commande/" class="btn btn-outline btn-lg" style="border-color: white; color: white;">
-                        Demander un devis gratuit
+                    <a href="/commande/" class="btn-bottom-action btn-commander">
+                        <i class="fas fa-credit-card"></i>
+                        Commander maintenant
                     </a>
                 </div>
             </div>
@@ -1336,10 +1652,56 @@
             document.body.style.overflow = '';
         });
 
+        // Fermer le menu en cliquant sur l'overlay
         mobileMenu.addEventListener('click', (e) => {
             if (e.target === mobileMenu) {
                 mobileMenu.classList.remove('active');
                 document.body.style.overflow = '';
+            }
+        });
+
+        // Fermer le menu quand on clique sur un lien
+        document.querySelectorAll('.mobile-menu-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Bouton Voir Plus
+        const voirPlusBtn = document.getElementById('voirPlusBtn');
+        const contenuCache = document.getElementById('contenuCache');
+        const voirPlusText = document.getElementById('voirPlusText');
+        const voirPlusIcon = document.getElementById('voirPlusIcon');
+        let isExpanded = false;
+
+        voirPlusBtn.addEventListener('click', () => {
+            isExpanded = !isExpanded;
+
+            if (isExpanded) {
+                // Afficher le contenu
+                contenuCache.classList.add('show');
+                voirPlusText.textContent = 'Voir Moins';
+                voirPlusIcon.className = 'fas fa-chevron-up';
+
+                // Scroll vers le contenu après un petit délai
+                setTimeout(() => {
+                    contenuCache.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            } else {
+                // Masquer le contenu
+                contenuCache.classList.remove('show');
+                voirPlusText.textContent = 'Voir Plus';
+                voirPlusIcon.className = 'fas fa-chevron-down';
+
+                // Scroll vers le bouton
+                voirPlusBtn.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
             }
         });
 
@@ -1389,7 +1751,6 @@
         function animateCounter(element, target, duration = 2000) {
             let start = 0;
             const increment = target / (duration / 16);
-
             const timer = setInterval(() => {
                 start += increment;
                 if (start >= target) {
@@ -1423,6 +1784,15 @@
         if (heroSection) {
             heroObserver.observe(heroSection);
         }
+
+        // Gestion du redimensionnement de la fenêtre
+        window.addEventListener('resize', () => {
+            // Fermer le menu mobile si la fenêtre devient plus large
+            if (window.innerWidth > 992 && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
     </script>
 </body>
 </html>

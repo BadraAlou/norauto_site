@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from .models import Produit, Panier, CartItem
 from django.conf import settings
 
+
 def get_or_create_cart(request):
     """
     Récupère ou crée un panier pour l'utilisateur (connecté ou anonyme via session).
@@ -126,9 +127,15 @@ def confirmation(request):
 
 def about(request):
     return render(request, 'main/about.html')
+def dashboard(request):
+    return render(request, 'main/dashboard.html')
+
 
 def services(request):
     return render(request, 'main/services.html')
+
+def login(request):
+    return render(request, 'main/login.html')
 
 def caracteristiques(request):
     return render(request, 'main/caracteristiques.html')

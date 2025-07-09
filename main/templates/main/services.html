@@ -51,7 +51,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Back Button - Simplifié avec juste une flèche */
+        /* Back Button */
         .back-button {
             position: fixed;
             top: 1.5rem;
@@ -80,7 +80,7 @@
             color: var(--text-primary);
         }
 
-        /* Page Header - Hauteur réduite */
+        /* Page Header */
         .page-header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
@@ -670,18 +670,19 @@
         }
     </style>
 </head>
+
 <body>
-    <!-- Back Button - Simplifié -->
-    <a href="javascript:history.back()" class="back-button">
+    <!-- Back Button -->
+    <a href="/" class="back-button" title="Retour à l'accueil">
         <i class="fas fa-arrow-left"></i>
     </a>
 
-    <!-- Page Header - Hauteur réduite -->
+    <!-- Page Header -->
     <section class="page-header">
         <div class="container">
             <div class="page-header-content">
-                <h1 class="fade-in-up">Nos Services GPS</h1>
-                <p class="fade-in-up">Solutions complètes de géolocalisation et sécurité pour vos voitures, motos, proches et enfants</p>
+                <h1>Nos Services</h1>
+                <p>Solutions complètes de géolocalisation et sécurité pour tous vos besoins</p>
             </div>
         </div>
     </section>
@@ -689,33 +690,33 @@
     <!-- Hero Services Section -->
     <section class="hero-services">
         <div class="container">
-            <h2 class="fade-in-up">Services de Géolocalisation Spécialisés</h2>
-            <p class="fade-in-up">De l'installation à la maintenance, nous vous accompagnons dans la sécurisation de ce qui compte le plus pour vous</p>
+            <h2>Protection Complète 24h/7j</h2>
+            <p>Découvrez nos solutions de géolocalisation avancées, conçues pour protéger ce qui vous tient le plus à cœur. Technologie de pointe, surveillance en temps réel et support client exceptionnel.</p>
 
-            <div class="service-showcase fade-in-up">
+            <div class="service-showcase">
                 <div class="service-item">
                     <div class="service-item-icon">
                         <i class="fas fa-car"></i>
                     </div>
-                    <div class="service-item-name">Sécurité Véhicules</div>
+                    <div class="service-item-name">Véhicules</div>
                 </div>
                 <div class="service-item">
                     <div class="service-item-icon">
                         <i class="fas fa-motorcycle"></i>
                     </div>
-                    <div class="service-item-name">Protection Motos</div>
+                    <div class="service-item-name">Motos</div>
                 </div>
                 <div class="service-item">
                     <div class="service-item-icon">
-                        <i class="fas fa-user-shield"></i>
+                        <i class="fas fa-users"></i>
                     </div>
-                    <div class="service-item-name">Suivi Personnes</div>
+                    <div class="service-item-name">Personnes</div>
                 </div>
                 <div class="service-item">
                     <div class="service-item-icon">
                         <i class="fas fa-child"></i>
                     </div>
-                    <div class="service-item-name">Sécurité Enfants</div>
+                    <div class="service-item-name">Enfants</div>
                 </div>
             </div>
         </div>
@@ -724,78 +725,24 @@
     <!-- Services Section -->
     <section class="services-section">
         <div class="container">
-            <h2 class="section-title fade-in-up">Nos Solutions Complètes</h2>
+            <h2 class="section-title">Nos Solutions Spécialisées</h2>
 
             <div class="row">
-                <!-- Service Sécurité Véhicules -->
-                <div class="col-lg-6 mb-4">
-                    <div class="service-card vehicles fade-in-up">
+                <!-- Service Véhicules -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="service-card vehicles">
+                        <div class="service-badge">Le Plus Populaire</div>
                         <div class="service-icon">
                             <i class="fas fa-car"></i>
                         </div>
-                        <div class="service-badge">Service Premium</div>
-                        <h3 class="service-title">Sécurité Véhicules</h3>
-                        <p class="service-description">Service complet de protection pour vos voitures avec installation professionnelle, suivi 24h/24 et intervention rapide en cas d'urgence.</p>
+                        <h3 class="service-title">Protection Véhicules</h3>
+                        <p class="service-description">
+                            Sécurisez vos voitures, camions et véhicules utilitaires avec notre système de géolocalisation avancé. Protection antivol complète avec alertes instantanées.
+                        </p>
                         <div class="service-features">
                             <div class="service-feature">
                                 <i class="fas fa-check"></i>
-                                <span>Installation professionnelle gratuite</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check"></i>
-                                <span>Suivi en temps réel 24h/24</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check"></i>
-                                <span>Alertes anti-vol instantanées</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check"></i>
-                                <span>Coupure moteur à distance</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check"></i>
-                                <span>Rapport mensuel détaillé</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check"></i>
-                                <span>Support technique dédié</span>
-                            </div>
-                        </div>
-                        <a href="/nos_produits/" class="btn-primary">
-                            <i class="fas fa-eye"></i> Voir nos produits
-                        </a>
-                        <a href="/contact/" class="btn-outline">
-                            <i class="fas fa-info-circle"></i> En savoir plus
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Service Protection Motos -->
-                <div class="col-lg-6 mb-4">
-                    <div class="service-card motos fade-in-up">
-                        <div class="service-icon">
-                            <i class="fas fa-motorcycle"></i>
-                        </div>
-                        <div class="service-badge">Spécialisé 2-Roues</div>
-                        <h3 class="service-title">Protection Motos</h3>
-                        <p class="service-description">Solution spécialement adaptée aux deux-roues avec équipements résistants aux vibrations et aux intempéries. Installation discrète garantie.</p>
-                        <div class="service-features">
-                            <div class="service-feature">
-                                <i class="fas fa-check"></i>
-                                <span>Équipement anti-vibrations</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check"></i>
-                                <span>Résistant aux intempéries</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check"></i>
-                                <span>Installation invisible</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check"></i>
-                                <span>Batterie longue autonomie</span>
+                                <span>Localisation en temps réel</span>
                             </div>
                             <div class="service-feature">
                                 <i class="fas fa-check"></i>
@@ -803,31 +750,83 @@
                             </div>
                             <div class="service-feature">
                                 <i class="fas fa-check"></i>
-                                <span>Géolocalisation précise</span>
+                                <span>Historique des trajets</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Immobilisation à distance</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Géofencing intelligent</span>
                             </div>
                         </div>
-                        <a href="/nos_produits/" class="btn-primary">
-                            <i class="fas fa-eye"></i> Voir nos produits
+                        <a href="/contact/" class="btn-primary">
+                            <i class="fas fa-phone"></i>
+                            Demander un devis
                         </a>
-                        <a href="/contact/" class="btn-outline">
-                            <i class="fas fa-info-circle"></i> En savoir plus
+                        <a href="/nos_produits/" class="btn-outline">
+                            Voir les produits
                         </a>
                     </div>
                 </div>
 
-                <!-- Service Suivi Personnes -->
-                <div class="col-lg-6 mb-4">
-                    <div class="service-card persons fade-in-up">
+                <!-- Service Motos -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="service-card motos">
                         <div class="service-icon">
-                            <i class="fas fa-user-shield"></i>
+                            <i class="fas fa-motorcycle"></i>
                         </div>
-                        <div class="service-badge">Sécurité Familiale</div>
-                        <h3 class="service-title">Suivi Personnes</h3>
-                        <p class="service-description">Service de protection personnelle avec équipements discrets et fonctionnalités d'urgence. Idéal pour personnes âgées et travailleurs isolés.</p>
+                        <h3 class="service-title">Sécurité Motos</h3>
+                        <p class="service-description">
+                            Protection spécialisée pour motos et scooters. Dispositifs discrets et résistants aux intempéries, conçus pour les deux-roues.
+                        </p>
                         <div class="service-features">
                             <div class="service-feature">
                                 <i class="fas fa-check"></i>
-                                <span>Équipement ultra-discret</span>
+                                <span>Traceur étanche et discret</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Batterie longue durée</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Alertes anti-vol</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Application mobile dédiée</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Support technique 24/7</span>
+                            </div>
+                        </div>
+                        <a href="/contact/" class="btn-primary">
+                            <i class="fas fa-phone"></i>
+                            Demander un devis
+                        </a>
+                        <a href="/nos_produits/" class="btn-outline">
+                            Voir les produits
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Service Personnes -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="service-card persons">
+                        <div class="service-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="service-title">Suivi des Personnes</h3>
+                        <p class="service-description">
+                            Surveillez la localisation de vos proches en toute discrétion. Idéal pour les personnes âgées, les employés ou la sécurité personnelle.
+                        </p>
+                        <div class="service-features">
+                            <div class="service-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Traceurs portables discrets</span>
                             </div>
                             <div class="service-feature">
                                 <i class="fas fa-check"></i>
@@ -835,47 +834,42 @@
                             </div>
                             <div class="service-feature">
                                 <i class="fas fa-check"></i>
-                                <span>Zones de sécurité configurables</span>
+                                <span>Zones de sécurité</span>
                             </div>
                             <div class="service-feature">
                                 <i class="fas fa-check"></i>
-                                <span>Alertes famille automatiques</span>
+                                <span>Notifications instantanées</span>
                             </div>
                             <div class="service-feature">
                                 <i class="fas fa-check"></i>
-                                <span>Historique des déplacements</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check"></i>
-                                <span>Assistance 24h/24</span>
+                                <span>Confidentialité garantie</span>
                             </div>
                         </div>
-                        <a href="/nos_produits/" class="btn-primary">
-                            <i class="fas fa-eye"></i> Voir nos produits
+                        <a href="/contact/" class="btn-primary">
+                            <i class="fas fa-phone"></i>
+                            Demander un devis
                         </a>
-                        <a href="/contact/" class="btn-outline">
-                            <i class="fas fa-info-circle"></i> En savoir plus
+                        <a href="/nos_produits/" class="btn-outline">
+                            Voir les produits
                         </a>
                     </div>
                 </div>
 
-                <!-- Service Sécurité Enfants -->
-                <div class="col-lg-6 mb-4">
-                    <div class="service-card children fade-in-up">
+                <!-- Service Enfants -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="service-card children">
+                        <div class="service-badge">Sécurité Famille</div>
                         <div class="service-icon">
                             <i class="fas fa-child"></i>
                         </div>
-                        <div class="service-badge">Protection Enfants</div>
-                        <h3 class="service-title">Sécurité Enfants</h3>
-                        <p class="service-description">Service spécialement conçu pour la sécurité des enfants avec équipements ludiques et fonctionnalités adaptées aux familles modernes.</p>
+                        <h3 class="service-title">Protection Enfants</h3>
+                        <p class="service-description">
+                            Gardez un œil sur vos enfants en toute sérénité. Montres et traceurs adaptés aux plus jeunes avec fonctionnalités ludiques et sécurisées.
+                        </p>
                         <div class="service-features">
                             <div class="service-feature">
                                 <i class="fas fa-check"></i>
-                                <span>Design coloré et amusant</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check"></i>
-                                <span>Zones école/maison automatiques</span>
+                                <span>Montres GPS colorées</span>
                             </div>
                             <div class="service-feature">
                                 <i class="fas fa-check"></i>
@@ -883,22 +877,23 @@
                             </div>
                             <div class="service-feature">
                                 <i class="fas fa-check"></i>
-                                <span>Alertes parents instantanées</span>
+                                <span>Jeux éducatifs intégrés</span>
                             </div>
                             <div class="service-feature">
                                 <i class="fas fa-check"></i>
-                                <span>Résistant aux chocs</span>
+                                <span>Contrôle parental complet</span>
                             </div>
                             <div class="service-feature">
                                 <i class="fas fa-check"></i>
-                                <span>Mode école (silencieux)</span>
+                                <span>Résistant à l'eau</span>
                             </div>
                         </div>
-                        <a href="/nos_produits/" class="btn-primary">
-                            <i class="fas fa-eye"></i> Voir nos produits
+                        <a href="/contact/" class="btn-primary">
+                            <i class="fas fa-phone"></i>
+                            Demander un devis
                         </a>
-                        <a href="/contact/" class="btn-outline">
-                            <i class="fas fa-info-circle"></i> En savoir plus
+                        <a href="/nos_produits/" class="btn-outline">
+                            Voir les produits
                         </a>
                     </div>
                 </div>
@@ -909,34 +904,42 @@
     <!-- Process Section -->
     <section class="process-section">
         <div class="container">
-            <h2 class="section-title fade-in-up">Comment Ça Marche ?</h2>
+            <h2 class="section-title">Comment ça marche ?</h2>
             <div class="row">
-                <div class="col-md-3 mb-4">
+                <div class="col-lg-3 col-md-6">
                     <div class="process-step fade-in-up">
                         <div class="process-number">1</div>
-                        <h4 class="process-title">Consultation</h4>
-                        <p class="process-description">Nous analysons vos besoins et vous conseillons la meilleure solution GPS.</p>
+                        <h3 class="process-title">Consultation</h3>
+                        <p class="process-description">
+                            Nous analysons vos besoins spécifiques et vous conseillons la solution la plus adaptée.
+                        </p>
                     </div>
                 </div>
-                <div class="col-md-3 mb-4">
+                <div class="col-lg-3 col-md-6">
                     <div class="process-step fade-in-up">
                         <div class="process-number">2</div>
-                        <h4 class="process-title">Installation</h4>
-                        <p class="process-description">Nos techniciens installent votre équipement gratuitement à domicile ou en atelier.</p>
+                        <h3 class="process-title">Installation</h3>
+                        <p class="process-description">
+                            Nos techniciens certifiés installent et configurent votre système de géolocalisation.
+                        </p>
                     </div>
                 </div>
-                <div class="col-md-3 mb-4">
+                <div class="col-lg-3 col-md-6">
                     <div class="process-step fade-in-up">
                         <div class="process-number">3</div>
-                        <h4 class="process-title">Configuration</h4>
-                        <p class="process-description">Paramétrage de votre application mobile et formation à l'utilisation.</p>
+                        <h3 class="process-title">Formation</h3>
+                        <p class="process-description">
+                            Formation complète à l'utilisation de votre application et de toutes les fonctionnalités.
+                        </p>
                     </div>
                 </div>
-                <div class="col-md-3 mb-4">
+                <div class="col-lg-3 col-md-6">
                     <div class="process-step fade-in-up">
                         <div class="process-number">4</div>
-                        <h4 class="process-title">Suivi</h4>
-                        <p class="process-description">Surveillance 24h/24 et support technique permanent pour votre tranquillité.</p>
+                        <h3 class="process-title">Support</h3>
+                        <p class="process-description">
+                            Support technique 24/7 et maintenance préventive pour une tranquillité d'esprit totale.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -946,16 +949,18 @@
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
-            <h2 class="fade-in-up">Prêt à Sécuriser ce qui Compte le Plus ?</h2>
-            <p class="fade-in-up">Découvrez nos produits et leurs tarifs, ou contactez-nous pour une consultation personnalisée gratuite.</p>
-            <div class="fade-in-up">
-                <a href="/nos_produits/" class="btn-secondary">
-                    <i class="fas fa-shopping-bag me-2"></i> Voir nos Produits & Prix
-                </a>
-                <a href="/contact/" class="btn-secondary">
-                    <i class="fas fa-phone me-2"></i> Consultation Gratuite
-                </a>
-            </div>
+            <h2>Prêt à protéger ce qui compte le plus ?</h2>
+            <p>
+                Rejoignez plus de 1000 familles et entreprises qui font confiance à GeoMaliPlus pour la sécurité de leurs biens les plus précieux.
+            </p>
+            <a href="/contact/" class="btn-secondary">
+                <i class="fas fa-phone-alt" style="margin-right: 0.5rem;"></i>
+                Contactez-nous maintenant
+            </a>
+            <a href="/nos_produits/" class="btn-secondary">
+                <i class="fas fa-box" style="margin-right: 0.5rem;"></i>
+                Voir nos produits
+            </a>
         </div>
     </section>
 
@@ -968,7 +973,9 @@
                         <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2logo%20gps.jpg-Y1bpYGOqhaGnwnUvbyrli9b8AStFjn.jpeg" alt="GeoMaliPlus Logo" class="footer-logo">
                         <span class="footer-brand-name">GeoMaliPlus</span>
                     </div>
-                    <p class="footer-description">Services professionnels de géolocalisation au Mali. Nous sécurisons vos voitures, motos, proches et enfants avec des solutions GPS innovantes.</p>
+                    <p class="footer-description">
+                        Solutions de géolocalisation et de sécurité innovantes pour protéger vos proches et vos biens au Mali.
+                    </p>
                     <div class="footer-social">
                         <a href="#" class="social-link">
                             <i class="fab fa-facebook-f"></i>
@@ -979,16 +986,19 @@
                         <a href="#" class="social-link">
                             <i class="fab fa-instagram"></i>
                         </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
                     </div>
                 </div>
 
                 <div>
-                    <h3 class="footer-heading">Nos Services</h3>
+                    <h3 class="footer-heading">Services</h3>
                     <ul class="footer-links">
-                        <li><a href="/services/" class="footer-link">Sécurité Véhicules</a></li>
-                        <li><a href="/services/" class="footer-link">Protection Motos</a></li>
-                        <li><a href="/services/" class="footer-link">Suivi Personnes</a></li>
-                        <li><a href="/services/" class="footer-link">Sécurité Enfants</a></li>
+                        <li><a href="#" class="footer-link">Protection véhicules</a></li>
+                        <li><a href="#" class="footer-link">Sécurité motos</a></li>
+                        <li><a href="#" class="footer-link">Suivi personnes</a></li>
+                        <li><a href="#" class="footer-link">Protection enfants</a></li>
                     </ul>
                 </div>
 
@@ -997,8 +1007,8 @@
                     <ul class="footer-links">
                         <li><a href="/a_propos/" class="footer-link">À propos</a></li>
                         <li><a href="/nos_produits/" class="footer-link">Nos produits</a></li>
-                        <li><a href="/avis/" class="footer-link">Témoignages</a></li>
-                        <li><a href="#" class="footer-link">Garanties</a></li>
+                        <li><a href="#" class="footer-link">Témoignages</a></li>
+                        <li><a href="#" class="footer-link">Blog</a></li>
                     </ul>
                 </div>
 
@@ -1006,7 +1016,7 @@
                     <h3 class="footer-heading">Contact</h3>
                     <div class="footer-contact-item">
                         <i class="fas fa-map-marker-alt footer-contact-icon"></i>
-                        <span>Baco djicoroni-golf, Bamako, Mali</span>
+                        <span>Bamako, Mali</span>
                     </div>
                     <div class="footer-contact-item">
                         <i class="fas fa-phone-alt footer-contact-icon"></i>
@@ -1020,14 +1030,15 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2025 GeoMaliPlus. Tous droits réservés. Services GPS Professionnels Mali.</p>
+                <p>&copy; 2025 GeoMaliPlus. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Intersection Observer for scroll animations
+        // Animation on scroll
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1041,20 +1052,9 @@
             });
         }, observerOptions);
 
-        // Observe all elements with fade-in-up class
+        // Observe all fade-in-up elements
         document.querySelectorAll('.fade-in-up').forEach(el => {
             observer.observe(el);
-        });
-
-        // Enhanced card hover animations
-        document.querySelectorAll('.service-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-8px) scale(1.02)';
-            });
-
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
         });
 
         // Smooth scrolling for anchor links

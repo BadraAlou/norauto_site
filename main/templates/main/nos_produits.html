@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -37,7 +36,7 @@
             line-height: 1.5;
         }
 
-        /* Bouton retour - Flèche uniquement */
+        /* Bouton retour */
         .back-button {
             position: absolute;
             top: 15px;
@@ -64,7 +63,7 @@
             color: white;
         }
 
-        /* Page Header - Très réduite */
+        /* Page Header */
         .page-header {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             color: white;
@@ -154,76 +153,69 @@
             right: -8px;
         }
 
-        /* Filters - Plus compact */
-        .filters-section {
-            background: var(--bg-gray);
+        /* Section Navigation */
+        .section-nav {
+            background: white;
             padding: 20px 0;
             border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .filters-container {
+        .nav-tabs {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 15px;
+            justify-content: center;
+            gap: 30px;
+            border: none;
         }
 
-        .filter-group {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .filter-select {
-            padding: 8px 12px;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            background: white;
-            color: var(--text-dark);
-            font-weight: 500;
-            font-size: 0.9rem;
+        .nav-tab {
+            background: none;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 25px;
             transition: all 0.3s ease;
-        }
-
-        .filter-select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
-        }
-
-        .search-box {
             position: relative;
         }
 
-        .search-input {
-            padding: 10px 40px 10px 12px;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            width: 250px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+        .nav-tab.active {
+            color: var(--primary-color);
+            background: var(--primary-lightest);
         }
 
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+        .nav-tab:hover {
+            color: var(--primary-color);
+            background: var(--bg-gray);
         }
 
-        .search-icon {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-        }
-
-        /* Products Grid - Optimisé pour images plus grandes */
+        /* Products Section */
         .products-section {
-            padding: 50px 0;
+            padding: 40px 0;
         }
 
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* Products Grid */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -235,21 +227,21 @@
             background: white;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-sm);
             transition: all 0.3s ease;
             border: 1px solid var(--border-color);
             position: relative;
         }
 
         .product-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
             box-shadow: var(--shadow-lg);
         }
 
-        /* Image agrandie */
+        /* Image */
         .product-image {
             position: relative;
-            height: 300px;
+            height: 250px;
             overflow: hidden;
             background: var(--bg-gray);
             display: flex;
@@ -283,71 +275,67 @@
         }
 
         .image-placeholder i {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 10px;
             opacity: 0.5;
         }
 
-        /* Info produit simplifiée */
+        /* Info produit */
         .product-info {
             padding: 20px;
             text-align: center;
         }
 
         .product-title {
-            font-size: 1.2rem;
-            font-weight: 700;
+            font-size: 1.1rem;
+            font-weight: 600;
             color: var(--text-dark);
             margin-bottom: 15px;
             line-height: 1.3;
         }
 
-        /* Prix plus visible */
+        /* Prix simplifié */
         .product-price {
             margin-bottom: 20px;
             text-align: center;
         }
 
         .price-current {
-            font-size: 1.8rem;
-            font-weight: 800;
+            font-size: 1.5rem;
+            font-weight: 700;
             color: var(--primary-color);
             display: block;
         }
 
         .price-original {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
             text-decoration: line-through;
-            margin-top: 5px;
+            margin-top: 3px;
             display: block;
         }
 
         .price-discount {
             background: var(--danger-color);
             color: white;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
             font-weight: 600;
-            margin-top: 8px;
+            margin-top: 5px;
             display: inline-block;
         }
 
-        /* Bouton simplifié - pleine largeur */
-        .product-actions {
-            padding: 0;
-        }
-
+        /* Bouton */
         .btn-add-cart {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
@@ -365,6 +353,136 @@
             background: var(--text-muted);
             cursor: not-allowed;
             transform: none;
+        }
+
+        /* Bouton d'abonnement */
+        .btn-subscribe {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--success-color), #059669);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-subscribe:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-subscribe:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Abonnements Section */
+        .subscriptions-section {
+            padding: 50px 0;
+            background: var(--bg-gray);
+        }
+
+        .subscription-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .subscription-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .subscription-card.popular {
+            border-color: var(--success-color);
+            transform: scale(1.05);
+        }
+
+        .subscription-card.popular:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success-color);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .subscription-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-lightest), var(--primary-lighter));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .subscription-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .subscription-price {
+            margin-bottom: 25px;
+        }
+
+        .subscription-price .price-current {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .subscription-price .price-period {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .subscription-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 25px 0;
+            text-align: left;
+        }
+
+        .subscription-features li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .subscription-features li i {
+            color: var(--success-color);
+            margin-right: 10px;
+            font-size: 0.8rem;
         }
 
         /* Footer */
@@ -475,8 +593,8 @@
         /* Loading Animation */
         .loading-spinner {
             display: inline-block;
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             border: 2px solid rgba(255,255,255,0.3);
             border-radius: 50%;
             border-top-color: white;
@@ -504,6 +622,7 @@
             border-left: 4px solid var(--success-color);
             transform: translateX(400px);
             transition: transform 0.3s ease;
+            min-width: 300px;
         }
 
         .toast.show {
@@ -539,15 +658,29 @@
             font-size: 0.8rem;
         }
 
+        /* Hidden sections */
+        .section-content {
+            display: none;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
         /* Responsive */
-        @media (max-width: 992px) {
-            .filters-container {
-                flex-direction: column;
-                align-items: stretch;
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 1.8rem;
             }
 
-            .search-input {
-                width: 100%;
+            .nav-tabs {
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            .nav-tab {
+                padding: 10px 16px;
+                font-size: 0.9rem;
             }
 
             .products-grid {
@@ -555,50 +688,12 @@
                 gap: 20px;
             }
 
-            .product-image {
-                height: 250px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .page-header {
-                padding: 25px 0 20px;
+            .subscription-card.popular {
+                transform: none;
             }
 
-            .page-header h1 {
-                font-size: 1.8rem;
-            }
-
-            .back-button {
-                top: 12px;
-                left: 15px;
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-
-            .cart-button {
-                top: 12px;
-                right: 15px;
-                padding: 8px 12px;
-                font-size: 0.8rem;
-            }
-
-            .products-grid {
-                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-                gap: 15px;
-            }
-
-            .product-image {
-                height: 200px;
-            }
-
-            .products-section {
-                padding: 30px 0;
-            }
-
-            .footer {
-                padding: 3rem 1rem;
+            .subscription-card.popular:hover {
+                transform: translateY(-8px);
             }
 
             .footer-grid {
@@ -608,33 +703,19 @@
         }
 
         @media (max-width: 576px) {
-            .page-header h1 {
-                font-size: 1.5rem;
-            }
-
-            .page-header p {
-                font-size: 0.9rem;
-            }
-
             .products-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .product-image {
-                height: 250px;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Page Header -->
     <section class="page-header">
-        <!-- Bouton retour - Flèche uniquement -->
         <a href="javascript:history.back()" class="back-button">
             <i class="fas fa-arrow-left"></i>
         </a>
-
-        <!-- Bouton panier -->
         <div class="header-nav">
             <a href="{% url 'panier' %}" class="cart-button">
                 <i class="fas fa-shopping-cart"></i>
@@ -642,50 +723,50 @@
                 <span class="cart-count" id="cartCount">0</span>
             </a>
         </div>
-
         <div class="container">
             <div class="page-header-content">
                 <h1>Nos Produits GPS</h1>
-                <p>Découvrez notre gamme complète de puces GPS et trackers de géolocalisation</p>
+                <p>Découvrez notre gamme complète de solutions de géolocalisation</p>
             </div>
         </div>
     </section>
 
-    <!-- Filters -->
-    <section class="filters-section">
+    <!-- Navigation Sections -->
+    <section class="section-nav">
         <div class="container">
-            <div class="filters-container">
-                <div class="filter-group">
-                    <select class="filter-select" id="categoryFilter">
-                        <option value="">Toutes les catégories</option>
-                        <option value="vehicule">Véhicules</option>
-                        <option value="moto">Motos</option>
-                        <option value="personnel">Personnel</option>
-                        <option value="objet">Objets</option>
-                    </select>
-
-                    <select class="filter-select" id="priceFilter">
-                        <option value="">Tous les prix</option>
-                        <option value="0-7500">0 - 7500 FCFA</option>
-                        <option value="7500-10000">7500 - 10000 FCFA</option>
-                        <option value="10000-15000">10000 - 15000 FCFA</option>
-                        <option value="15000+">15000+ FCFA</option>
-                    </select>
-                </div>
-
-                <div class="search-box">
-                    <input type="text" class="search-input" id="searchInput" placeholder="Rechercher un produit...">
-                    <i class="fas fa-search search-icon"></i>
-                </div>
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="showSection('products')">
+                    <i class="fas fa-microchip"></i> Produits GPS
+                </button>
+                <button class="nav-tab" onclick="showSection('subscriptions')">
+                    <i class="fas fa-credit-card"></i> Abonnements
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- Products -->
-    <section class="products-section">
+    <!-- Products Section -->
+    <section class="products-section section-content active" id="products-section">
         <div class="container">
+            <div class="section-title">
+                <h2>Trackers & Puces GPS</h2>
+                <p>Solutions matérielles pour tous vos besoins de géolocalisation</p>
+            </div>
             <div class="products-grid" id="productsGrid">
                 <!-- Les produits seront générés par JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscriptions Section -->
+    <section class="subscriptions-section section-content" id="subscriptions-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Plans d'Abonnement</h2>
+                <p>Choisissez le plan qui correspond à vos besoins</p>
+            </div>
+            <div class="products-grid" id="subscriptionsGrid">
+                <!-- Les abonnements seront générés par JavaScript -->
             </div>
         </div>
     </section>
@@ -715,7 +796,6 @@
                         </a>
                     </div>
                 </div>
-
                 <div>
                     <h3 class="footer-heading">Services</h3>
                     <ul class="footer-links">
@@ -725,17 +805,15 @@
                         <li><a href="{% url 'services' %}" class="footer-link">Application mobile</a></li>
                     </ul>
                 </div>
-
                 <div>
                     <h3 class="footer-heading">Entreprise</h3>
                     <ul class="footer-links">
                         <li><a href="{% url 'a_propos' %}" class="footer-link">À propos</a></li>
                         <li><a href="{% url 'a_propos' %}#equipe" class="footer-link">Notre équipe</a></li>
-                        <li><a href="{% url 'avis' %}" class="footer-link">Témoignages</a></li>
+
                         <li><a href="#" class="footer-link">Actualités</a></li>
                     </ul>
                 </div>
-
                 <div>
                     <h3 class="footer-heading">Contact</h3>
                     <div class="footer-contact-item">
@@ -752,7 +830,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="footer-bottom">
                 <p>&copy; 2025 GeoMaliPlus. Tous droits réservés.</p>
             </div>
@@ -761,86 +838,120 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Configuration des produits avec vos prix mis à jour
+        // Configuration des produits
         const products = [
             {
                 id: 1,
                 name: "Puce GPS Voiture",
-                category: "vehicule",
                 price: 10000,
-                originalPrice: null,
                 image: "{% static 'images/puce1.jpg' %}"
             },
             {
                 id: 2,
                 name: "Puces GPS Motos",
-                category: "personnel",
                 price: 7500,
-                originalPrice: null,
                 image: "{% static 'images/puce2.jpg' %}"
             },
             {
                 id: 3,
                 name: "Puces GPS Voiture",
-                category: "vehicule",
                 price: 10000,
-                originalPrice: null,
                 image: "{% static 'images/puce3.jpg' %}"
             },
             {
                 id: 4,
                 name: "Puces pour Portable",
-                category: "objet",
                 price: 7500,
-                originalPrice: null,
                 image: "{% static 'images/puce4.jpg' %}"
             },
             {
                 id: 5,
                 name: "Tracker pour Personnes",
-                category: "personnel",
                 price: 7500,
-                originalPrice: null,
                 image: "{% static 'images/puce5.jpg' %}"
             },
             {
                 id: 6,
                 name: "Tracker GPS",
-                category: "personnel",
                 price: 10000,
-                originalPrice: null,
                 image: "{% static 'images/puce9.jpg' %}"
             }
         ];
 
-        // Gestion du panier
+        // Configuration des abonnements
+        const subscriptions = [
+            {
+                id: 'sub_monthly',
+                name: "Abonnement Mensuel",
+                price: 2500,
+                period: "mois",
+                features: [
+                    "20 trackers GPS",
+                    "Historique 30 jours",
+                    "Support email",
+                    "Alertes temps réel"
+                ]
+            },
+            {
+                id: 'sub_quarterly',
+                name: "Abonnement Trimestriel",
+                price: 7500,
+                period: "3 mois",
+                popular: true,
+                features: [
+                    "50 trackers GPS",
+                    "Historique 90 jours",
+                    "Support 24/7",
+                    "Alertes avancées",
+                    "Rapports détaillés"
+                ]
+            },
+            {
+                id: 'sub_yearly',
+                name: "Abonnement Annuel",
+                price: 10000,
+                period: "an",
+                features: [
+                    "Trackers illimités",
+                    "Historique complet",
+                    "Support dédié",
+                    "Toutes fonctionnalités",
+                    "API premium"
+                ]
+            }
+        ];
+
+        // Gestion du panier (seulement pour les produits)
         class CartManager {
             constructor() {
                 this.cart = JSON.parse(localStorage.getItem('geoMaliCart') || '[]');
                 this.updateCartCount();
             }
 
-            addToCart(productId, quantity = 1) {
-                const product = products.find(p => p.id === productId);
+            addToCart(itemId, quantity = 1) {
+                const product = products.find(p => p.id === itemId);
                 if (!product) return false;
 
-                const existingItem = this.cart.find(item => item.id === productId);
-
+                const existingItem = this.cart.find(cartItem => cartItem.id === itemId);
                 if (existingItem) {
                     existingItem.quantity += quantity;
                 } else {
                     this.cart.push({
-                        id: productId,
+                        id: itemId,
                         name: product.name,
                         price: product.price,
-                        image: product.image,
+                        image: product.image || null,
+                        type: 'product',
                         quantity: quantity
                     });
                 }
 
                 this.saveCart();
                 this.updateCartCount();
-                this.showToast('Produit ajouté au panier', `${product.name} a été ajouté à votre panier`);
+                this.showToast(
+                    'Produit ajouté',
+                    `${product.name} a été ajouté à votre panier`
+                );
                 return true;
             }
 
@@ -850,10 +961,7 @@
 
             updateCartCount() {
                 const totalItems = this.cart.reduce((sum, item) => sum + item.quantity, 0);
-                const cartCountElement = document.getElementById('cartCount');
-                if (cartCountElement) {
-                    cartCountElement.textContent = totalItems;
-                }
+                document.getElementById('cartCount').textContent = totalItems;
             }
 
             showToast(title, message) {
@@ -871,70 +979,23 @@
                 `;
 
                 toastContainer.appendChild(toast);
-
                 setTimeout(() => toast.classList.add('show'), 100);
                 setTimeout(() => {
                     toast.classList.remove('show');
                     setTimeout(() => toast.remove(), 300);
-                }, 3000);
+                }, 4000);
             }
         }
 
-        // Initialisation du gestionnaire de panier
         const cartManager = new CartManager();
-
-        // Rendu des produits
-        function renderProducts(productsToRender = products) {
-            const grid = document.getElementById('productsGrid');
-
-            if (productsToRender.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-12 text-center">
-                        <h3>Aucun produit trouvé</h3>
-                        <p>Essayez de modifier vos critères de recherche</p>
-                    </div>
-                `;
-                return;
-            }
-
-            grid.innerHTML = productsToRender.map(product => `
-                <div class="product-card" data-category="${product.category}" data-price="${product.price}">
-                    <div class="product-image">
-                        <img src="${product.image}"
-                             alt="${product.name}"
-                             loading="lazy"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                             style="display: block;">
-                        <div class="image-placeholder" style="display: none;">
-                            <i class="fas fa-image"></i>
-                            <div>Image de ${product.name}</div>
-                            <small>Vérifiez que l'image existe dans static/images/</small>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">${product.name}</h3>
-                        <div class="product-price">
-                            <span class="price-current">${formatPrice(product.price)}</span>
-                            ${product.originalPrice ? `<span class="price-original">${formatPrice(product.originalPrice)}</span>` : ''}
-                            ${product.originalPrice ? `<div class="price-discount">-${Math.round((1 - product.price/product.originalPrice) * 100)}%</div>` : ''}
-                        </div>
-                        <div class="product-actions">
-                            <button class="btn-add-cart" onclick="addToCart(${product.id})">
-                                <i class="fas fa-shopping-cart"></i>
-                                Ajouter au panier
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
 
         // Fonctions utilitaires
         function formatPrice(price) {
             return new Intl.NumberFormat('fr-FR').format(price) + ' FCFA';
         }
 
-        function addToCart(productId) {
+        // Fonction pour ajouter un produit au panier
+        function addToCart(itemId) {
             const button = event.target.closest('.btn-add-cart');
             const originalContent = button.innerHTML;
 
@@ -942,60 +1003,137 @@
             button.innerHTML = '<div class="loading-spinner"></div> Ajout...';
 
             setTimeout(() => {
-                cartManager.addToCart(productId);
+                cartManager.addToCart(itemId);
                 button.disabled = false;
                 button.innerHTML = originalContent;
             }, 500);
         }
 
-        // Filtres et recherche
-        function setupFilters() {
-            const categoryFilter = document.getElementById('categoryFilter');
-            const priceFilter = document.getElementById('priceFilter');
-            const searchInput = document.getElementById('searchInput');
+        // Fonction pour s'abonner (nouvelle fonction séparée)
+        function subscribe(subscriptionId) {
+            const button = event.target.closest('.btn-subscribe');
+            const originalContent = button.innerHTML;
+            const subscription = subscriptions.find(s => s.id === subscriptionId);
 
-            function filterProducts() {
-                let filteredProducts = [...products];
+            if (!subscription) return;
 
-                // Filtre par catégorie
-                const selectedCategory = categoryFilter.value;
-                if (selectedCategory) {
-                    filteredProducts = filteredProducts.filter(p => p.category === selectedCategory);
-                }
+            button.disabled = true;
+            button.innerHTML = '<div class="loading-spinner"></div> Abonnement...';
 
-                // Filtre par prix
-                const selectedPriceRange = priceFilter.value;
-                if (selectedPriceRange) {
-                    const [min, max] = selectedPriceRange.split('-').map(p => p.replace('+', ''));
-                    filteredProducts = filteredProducts.filter(p => {
-                        if (max) {
-                            return p.price >= parseInt(min) && p.price <= parseInt(max);
-                        } else {
-                            return p.price >= parseInt(min);
-                        }
-                    });
-                }
+            setTimeout(() => {
+                // Afficher le message de succès
+                showSubscriptionSuccessToast(subscription.name);
 
-                // Filtre par recherche
-                const searchTerm = searchInput.value.toLowerCase();
-                if (searchTerm) {
-                    filteredProducts = filteredProducts.filter(p =>
-                        p.name.toLowerCase().includes(searchTerm)
-                    );
-                }
+                // Remettre le bouton à l'état normal
+                button.disabled = false;
+                button.innerHTML = originalContent;
+            }, 1500);
+        }
 
-                renderProducts(filteredProducts);
-            }
+        // Fonction pour afficher le toast de succès d'abonnement
+        function showSubscriptionSuccessToast(subscriptionName) {
+            const toastContainer = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.style.borderLeftColor = 'var(--success-color)';
+            toast.innerHTML = `
+                <div class="toast-header">
+                    <div class="toast-icon" style="background: var(--success-color);">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="toast-title">Abonnement réussi !</div>
+                </div>
+                <div class="toast-message">Vous avez été abonné avec succès au ${subscriptionName}. Bienvenue !</div>
+            `;
 
-            categoryFilter.addEventListener('change', filterProducts);
-            priceFilter.addEventListener('change', filterProducts);
-            searchInput.addEventListener('input', filterProducts);
+            toastContainer.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 100);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 5000);
+        }
+
+        // Navigation entre sections
+        function showSection(sectionName) {
+            // Mettre à jour les onglets
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Afficher la section correspondante
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionName + '-section').classList.add('active');
+        }
+
+        // Rendu des produits
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="${product.image}"
+                             alt="${product.name}"
+                             loading="lazy"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                             style="display: block;">
+                        <div class="image-placeholder" style="display: none;">
+                            <i class="fas fa-microchip"></i>
+                            <div>${product.name}</div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <div class="product-price">
+                            <span class="price-current">${formatPrice(product.price)}</span>
+                        </div>
+                        <button class="btn-add-cart" onclick="addToCart(${product.id})">
+                            <i class="fas fa-shopping-cart"></i>
+                            Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Rendu des abonnements
+        function renderSubscriptions() {
+            const grid = document.getElementById('subscriptionsGrid');
+            grid.innerHTML = subscriptions.map(sub => `
+                <div class="subscription-card ${sub.popular ? 'popular' : ''}">
+                    ${sub.popular ? '<div class="popular-badge">Plus Populaire</div>' : ''}
+                    <div class="subscription-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3 class="subscription-name">${sub.name}</h3>
+                    <div class="subscription-price">
+                        <div class="price-current">${formatPrice(sub.price)}</div>
+                        <div class="price-period">par ${sub.period}</div>
+                        ${sub.originalPrice ? `
+                            <div class="price-original">${formatPrice(sub.originalPrice)}</div>
+                            <div class="price-discount">Économisez ${Math.round((1 - sub.price/sub.originalPrice) * 100)}%</div>
+                        ` : ''}
+                    </div>
+                    <ul class="subscription-features">
+                        ${sub.features.map(feature => `
+                            <li><i class="fas fa-check"></i> ${feature}</li>
+                        `).join('')}
+                    </ul>
+                    <button class="btn-subscribe" onclick="subscribe('${sub.id}')">
+                        <i class="fas fa-credit-card"></i>
+                        S'abonner
+                    </button>
+                </div>
+            `).join('');
         }
 
         // Initialisation
         document.addEventListener('DOMContentLoaded', () => {
             renderProducts();
-            setupFilters();
+            renderSubscriptions();
         });
     </script>
 </body>

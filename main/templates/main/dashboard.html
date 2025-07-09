@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - GeoMaliPlus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #1f2937;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .user-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        .user-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .user-role {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        .nav-menu {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+            transition: margin-left 0.3s ease;
+        }
+
+        .header {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-left p {
+            color: #6b7280;
+        }
+
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #3b82f6;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-card.success {
+            border-left-color: #10b981;
+        }
+
+        .stat-card.warning {
+            border-left-color: #f59e0b;
+        }
+
+        .stat-card.danger {
+            border-left-color: #ef4444;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .stat-icon.primary { background: #3b82f6; }
+        .stat-icon.success { background: #10b981; }
+        .stat-icon.warning { background: #f59e0b; }
+        .stat-icon.danger { background: #ef4444; }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .table th,
+        .table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .table tr:hover {
+            background: #f8fafc;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+        }
+
+        /* Status badges */
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-success { background: #dcfce7; color: #16a34a; }
+        .badge-warning { background: #fef3c7; color: #d97706; }
+        .badge-danger { background: #fee2e2; color: #dc2626; }
+        .badge-info { background: #dbeafe; color: #2563eb; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+                background: #3b82f6;
+                color: white;
+                border: none;
+                padding: 0.75rem;
+                border-radius: 8px;
+                cursor: pointer;
+                margin-right: 1rem;
+            }
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="logo-text">GeoMaliPlus</div>
+                </div>
+                <div class="user-info">
+                    <div class="user-name">{{ user.get_full_name|default:user.username }}</div>
+                    <div class="user-role">{{ user.email }}</div>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <div class="nav-item">
+                    <a class="nav-link active" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Tableau de bord</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" data-section="employees">
+                        <i class="fas fa-users"></i>
+                        <span>Employés</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" data-section="leaves">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Congés & Absences</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" data-section="gps">
+                        <i class="fas fa-satellite-dish"></i>
+                        <span>Puces GPS</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" data-section="invoices">
+                        <i class="fas fa-file-invoice"></i>
+                        <span>Factures</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" data-section="contracts">
+                        <i class="fas fa-file-contract"></i>
+                        <span>Contrats</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" data-section="planning">
+                        <i class="fas fa-calendar"></i>
+                        <span>Planning</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 id="pageTitle">Tableau de bord</h1>
+                    <p id="pageSubtitle">Vue d'ensemble de GeoMaliPlus</p>
+                </div>
+                <div class="header-right">
+                    <a href="{% url 'main:employee_logout' %}" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Déconnexion
+                    </a>
+                </div>
+            </div>
+
+            <!-- Dashboard Section -->
+            <div class="content-section active" id="dashboard">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card primary">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-number">{{ stats.total_employees }}</div>
+                                <div class="stat-label">Employés actifs</div>
+                            </div>
+                            <div class="stat-icon primary">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card success">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-number">{{ stats.active_gps }}</div>
+                                <div class="stat-label">Puces GPS actives</div>
+                            </div>
+                            <div class="stat-icon success">
+                                <i class="fas fa-satellite-dish"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card warning">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-number">{{ stats.pending_leaves }}</div>
+                                <div class="stat-label">Congés en attente</div>
+                            </div>
+                            <div class="stat-icon warning">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card danger">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-number">{{ stats.monthly_revenue|floatformat:1 }}M</div>
+                                <div class="stat-label">CA mensuel (FCFA)</div>
+                            </div>
+                            <div class="stat-icon danger">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="section-card">
+                    <h2 class="section-title">
+                        <i class="fas fa-clock"></i>
+                        Activité récente
+                    </h2>
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Utilisateur</th>
+                                    <th>Date</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Installation GPS - Véhicule Toyota</td>
+                                    <td>Ibrahim Coulibaly</td>
+                                    <td>Aujourd'hui 14:30</td>
+                                    <td><span class="badge badge-success">Terminé</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Nouvelle demande de congé</td>
+                                    <td>Fatoumata Keita</td>
+                                    <td>Aujourd'hui 11:15</td>
+                                    <td><span class="badge badge-warning">En attente</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Facture générée - Client Sogoniko</td>
+                                    <td>Amadou Traoré</td>
+                                    <td>Hier 16:45</td>
+                                    <td><span class="badge badge-info">Envoyée</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Autres sections (employés, congés, etc.) -->
+            <div class="content-section" id="employees">
+                <div class="section-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h2 class="section-title" style="margin-bottom: 0;">
+                            <i class="fas fa-users"></i>
+                            Gestion des Employés
+                        </h2>
+                        <button class="btn btn-primary" onclick="loadEmployees()">
+                            <i class="fas fa-refresh"></i>
+                            Actualiser
+                        </button>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Email</th>
+                                    <th>Poste</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="employeesTable">
+                                <tr>
+                                    <td colspan="5" style="text-align: center;">Chargement...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Congés -->
+            <div class="content-section" id="leaves">
+                <div class="section-card">
+                    <h2 class="section-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        Gestion des Congés et Absences
+                    </h2>
+
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Employé</th>
+                                    <th>Type</th>
+                                    <th>Date début</th>
+                                    <th>Date fin</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leavesTable">
+                                <tr>
+                                    <td colspan="5" style="text-align: center;">Chargement...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section GPS -->
+            <div class="content-section" id="gps">
+                <div class="section-card">
+                    <h2 class="section-title">
+                        <i class="fas fa-satellite-dish"></i>
+                        Gestion des Puces GPS
+                    </h2>
+
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID Puce</th>
+                                    <th>Client</th>
+                                    <th>Véhicule</th>
+                                    <th>Statut</th>
+                                    <th>Date installation</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gpsTable">
+                                <tr>
+                                    <td colspan="5" style="text-align: center;">Chargement...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Factures -->
+            <div class="content-section" id="invoices">
+                <div class="section-card">
+                    <h2 class="section-title">
+                        <i class="fas fa-file-invoice"></i>
+                        Gestion des Factures
+                    </h2>
+
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>N° Facture</th>
+                                    <th>Client</th>
+                                    <th>Montant</th>
+                                    <th>Date</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody id="invoicesTable">
+                                <tr>
+                                    <td colspan="5" style="text-align: center;">Chargement...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Contrats -->
+            <div class="content-section" id="contracts">
+                <div class="section-card">
+                    <h2 class="section-title">
+                        <i class="fas fa-file-contract"></i>
+                        Gestion des Contrats
+                    </h2>
+
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>N° Contrat</th>
+                                    <th>Client</th>
+                                    <th>Type</th>
+                                    <th>Date début</th>
+                                    <th>Date fin</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contractsTable">
+                                <tr>
+                                    <td colspan="5" style="text-align: center;">Chargement...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Planning -->
+            <div class="content-section" id="planning">
+                <div class="section-card">
+                    <h2 class="section-title">
+                        <i class="fas fa-calendar"></i>
+                        Planning des Interventions
+                    </h2>
+
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Heure</th>
+                                    <th>Client</th>
+                                    <th>Type intervention</th>
+                                    <th>Technicien</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody id="planningTable">
+                                <tr>
+                                    <td colspan="6" style="text-align: center;">Chargement...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            initNavigation();
+            loadEmployees();
+        });
+
+        function initNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.content-section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    // Remove active class from all links and sections
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+
+                    // Add active class to clicked link
+                    this.classList.add('active');
+
+                    // Show corresponding section
+                    const sectionId = this.getAttribute('data-section');
+                    const section = document.getElementById(sectionId);
+                    if (section) {
+                        section.classList.add('active');
+                        updatePageTitle(sectionId);
+
+                        // Load data for the section
+                        loadSectionData(sectionId);
+                    }
+                });
+            });
+        }
+
+        function updatePageTitle(sectionId) {
+            const titles = {
+                dashboard: { title: 'Tableau de bord', subtitle: 'Vue d\'ensemble de GeoMaliPlus' },
+                employees: { title: 'Gestion des Employés', subtitle: 'Gérer les employés et leurs informations' },
+                leaves: { title: 'Congés & Absences', subtitle: 'Gérer les demandes de congés et absences' },
+                gps: { title: 'Puces GPS', subtitle: 'Gérer l\'inventaire et l\'état des puces GPS' },
+                invoices: { title: 'Factures', subtitle: 'Gérer les factures et paiements' },
+                contracts: { title: 'Contrats', subtitle: 'Gérer les contrats clients' },
+                planning: { title: 'Planning', subtitle: 'Planifier les interventions et rendez-vous' }
+            };
+
+            const pageInfo = titles[sectionId];
+            if (pageInfo) {
+                document.getElementById('pageTitle').textContent = pageInfo.title;
+                document.getElementById('pageSubtitle').textContent = pageInfo.subtitle;
+            }
+        }
+
+        function loadSectionData(sectionId) {
+            switch(sectionId) {
+                case 'employees':
+                    loadEmployees();
+                    break;
+                case 'leaves':
+                    loadLeaves();
+                    break;
+                case 'gps':
+                    loadGPS();
+                    break;
+                case 'invoices':
+                    loadInvoices();
+                    break;
+                case 'contracts':
+                    loadContracts();
+                    break;
+                case 'planning':
+                    loadPlanning();
+                    break;
+            }
+        }
+
+        // Fonctions de chargement des données
+        function loadEmployees() {
+            fetch('{% url "main:api_employees" %}')
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById('employeesTable');
+                    tbody.innerHTML = '';
+
+                    data.employees.forEach(employee => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${employee.name}</td>
+                            <td>${employee.email}</td>
+                            <td>${employee.position}</td>
+                            <td><span class="badge ${employee.status === 'Actif' ? 'badge-success' : 'badge-warning'}">${employee.status}</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-warning">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    document.getElementById('employeesTable').innerHTML = '<tr><td colspan="5" style="text-align: center; color: red;">Erreur de chargement</td></tr>';
+                });
+        }
+
+        function loadLeaves() {
+            fetch('{% url "main:api_leaves" %}')
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById('leavesTable');
+                    tbody.innerHTML = '';
+
+                    data.leaves.forEach(leave => {
+                        const statusClass = leave.status === 'Approuvé' ? 'badge-success' :
+                                          leave.status === 'En attente' ? 'badge-warning' : 'badge-danger';
+
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${leave.employee}</td>
+                            <td>${leave.type}</td>
+                            <td>${formatDate(leave.start_date)}</td>
+                            <td>${formatDate(leave.end_date)}</td>
+                            <td><span class="badge ${statusClass}">${leave.status}</span></td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                });
+        }
+
+        function loadGPS() {
+            fetch('{% url "main:api_gps" %}')
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById('gpsTable');
+                    tbody.innerHTML = '';
+
+                    data.gps_devices.forEach(device => {
+                        const statusClass = device.status === 'Installée' ? 'badge-success' :
+                                          device.status === 'En stock' ? 'badge-info' : 'badge-warning';
+
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${device.id}</td>
+                            <td>${device.client}</td>
+                            <td>${device.vehicle}</td>
+                            <td><span class="badge ${statusClass}">${device.status}</span></td>
+                            <td>${device.install_date}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                });
+        }
+
+        function loadInvoices() {
+            fetch('{% url "main:api_invoices" %}')
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById('invoicesTable');
+                    tbody.innerHTML = '';
+
+                    data.invoices.forEach(invoice => {
+                        const statusClass = invoice.status === 'Payée' ? 'badge-success' :
+                                          invoice.status === 'En attente' ? 'badge-warning' : 'badge-info';
+
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${invoice.id}</td>
+                            <td>${invoice.client}</td>
+                            <td>${invoice.amount.toLocaleString()} FCFA</td>
+                            <td>${formatDate(invoice.date)}</td>
+                            <td><span class="badge ${statusClass}">${invoice.status}</span></td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                });
+        }
+
+        function loadContracts() {
+            fetch('{% url "main:api_contracts" %}')
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById('contractsTable');
+                    tbody.innerHTML = '';
+
+                    data.contracts.forEach(contract => {
+                        const statusClass = contract.status === 'Actif' ? 'badge-success' :
+                                          contract.status === 'En cours' ? 'badge-info' : 'badge-warning';
+
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${contract.id}</td>
+                            <td>${contract.client}</td>
+                            <td>${contract.type}</td>
+                            <td>${formatDate(contract.start_date)}</td>
+                            <td>${formatDate(contract.end_date)}</td>
+                            <td><span class="badge ${statusClass}">${contract.status}</span></td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                });
+        }
+
+        function loadPlanning() {
+            fetch('{% url "main:api_planning" %}')
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById('planningTable');
+                    tbody.innerHTML = '';
+
+                    data.planning.forEach(item => {
+                        const statusClass = item.status === 'Terminé' ? 'badge-success' :
+                                          item.status === 'En cours' ? 'badge-warning' : 'badge-info';
+
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${formatDate(item.date)}</td>
+                            <td>${item.time}</td>
+                            <td>${item.client}</td>
+                            <td>${item.type}</td>
+                            <td>${item.technician}</td>
+                            <td><span class="badge ${statusClass}">${item.status}</span></td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                });
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('fr-FR');
+        }
+
+        // Menu mobile
+        document.getElementById('mobileMenuToggle')?.addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
